@@ -6,6 +6,38 @@ public class Game {
     private boolean isEnded;
     private String winner;
 
+    public void newTurn(){
+
+    }
+
+    public void createPlayer(String username){
+
+    }
+
+    public String listPlayers(Player[] players){
+        return "";
+    }
+
+    public String showPlayerMovement(int oldPosition, int newPosition){
+        return "";
+    }
+
+    public boolean playerCheck(String username){
+        return false;
+    }
+
+    public void initializeBoard(Cell[] cells){
+
+    }
+
+    public void addPlayer(Player player){
+
+    }
+
+    /*public Player[] getCellOccupants(int position){
+
+    }*/
+
     public Player[] getPlayers() {
         return players;
     }

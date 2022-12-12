@@ -3,9 +3,23 @@ package org.thegoosegame.game;
 public class Player {
     private String username;
     private int position;
+
+    private int prevPosition;
     private boolean hasWon;
     private int firstDice;
     private int secondDice;
+
+    public void rollDices(){
+
+    }
+
+    public int moveForward(int firstDice, int secondDice){
+        return 0;
+    }
+
+    public int bounce(int position){
+        return 0;
+    }
 
     public String getUsername() {
         return username;
