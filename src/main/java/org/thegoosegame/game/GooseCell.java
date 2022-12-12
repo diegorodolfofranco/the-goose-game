@@ -4,6 +4,11 @@ public class GooseCell implements Cell{
     private int id;
     private boolean isOccupied;
 
+    public GooseCell(int id, boolean isOccupied) {
+        this.id = id;
+        this.isOccupied = isOccupied;
+    }
+
     public int move(){
         return 0;
     }
@@ -13,6 +18,6 @@ public class GooseCell implements Cell{
     }
 
     public boolean isCellOccupied(){
-        return false;
+        return isOccupied;
     }
 }

@@ -4,6 +4,11 @@ public class StandardCell implements Cell{
     private int id;
     private boolean isOccupied;
 
+    public StandardCell(int id, boolean isOccupied) {
+        this.id = id;
+        this.isOccupied = isOccupied;
+    }
+
     public int move(){
         return 0;
     }
@@ -13,6 +18,6 @@ public class StandardCell implements Cell{
     }
 
     public boolean isCellOccupied(){
-        return false;
+        return isOccupied;
     }
 }

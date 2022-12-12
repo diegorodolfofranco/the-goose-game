@@ -1,6 +1,7 @@
 package org.thegoosegame.game;
 
 public class Player {
+    private Game game;
     private String username;
     private int position;
 
@@ -9,8 +10,33 @@ public class Player {
     private int firstDice;
     private int secondDice;
 
-    public void rollDices(){
+    public Player(String username) {
+        this.username = username;
+        this.position = 0;
+        this.prevPosition = 0;
+        this.hasWon = false;
+        this.firstDice = 0;
+        this.secondDice = 0;
+    }
 
+    public Player(String username, int position, int prevPosition, boolean hasWon, int firstDice, int secondDice) {
+        this.username = username;
+        this.position = position;
+        this.prevPosition = prevPosition;
+        this.hasWon = hasWon;
+        this.firstDice = firstDice;
+        this.secondDice = secondDice;
+    }
+
+    public void rollDices(){
+        int newPosition;
+
+        firstDice = (int)(Math.random() * 6) + 1;
+        secondDice = (int)(Math.random() * 6) + 1;
+        prevPosition = position;
+
+        newPosition = moveForward(firstDice, secondDice);
+        setPosition(newPosition);
     }
 
     public int moveForward(int firstDice, int secondDice){
@@ -19,6 +45,10 @@ public class Player {
 
     public int bounce(int position){
         return 0;
+    }
+
+    public String showPlayerMovement(int firstDice, int secondDice, int oldPosition, int newPosition){
+        return username + " rolls " + firstDice + ", " + secondDice + ". " + username + " moves from " + oldPosition + " to " + newPosition + ".";
     }
 
     public String getUsername() {
