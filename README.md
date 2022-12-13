@@ -55,3 +55,5 @@ Multiple Jump js If there is one participant "Pippo" on space "10" assuming that
 As a player, when I land on a space occupied by another player, I send him to my previous position so that the game can be more entertaining.
 
 Scenarios: 1. Prank js If there are two participants "Pippo" and "Pluto" respectively on spaces "15" and "17" assuming that the dice get 1 and 1 when the user writes: "move Pippo" the system responds: "Pippo rolls 1, 1. Pippo moves from 15 to 17. On 17 there is Pluto, who returns to 15"
+
+Can be used under MIT licensing.
