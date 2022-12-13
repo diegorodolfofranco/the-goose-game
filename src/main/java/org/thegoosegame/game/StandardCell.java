@@ -5,6 +5,7 @@ public class StandardCell implements Cell{
     private int id;
     private boolean isOccupied;
 
+    //constructor
     public StandardCell(int id, boolean isOccupied) {
         this.id = id;
         this.isOccupied = isOccupied;
@@ -14,6 +15,7 @@ public class StandardCell implements Cell{
 
     }
 
+    //if player A moves to a cell where there's already at least another player B, player B moves to player A's old position.
     public void prank(int prevPosition, int position){
         Player[] occupants = getGame().getCellOccupants(position);
 
@@ -21,6 +23,7 @@ public class StandardCell implements Cell{
             player.setPosition(prevPosition);
     }
 
+    //returns true if there's at least a player on the cell
     public boolean isCellOccupied(){
         return isOccupied;
     }

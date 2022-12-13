@@ -1,11 +1,16 @@
 package org.thegoosegame.game;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Game {
     private Player[] players;
+    //private Set<Player> players = new HashSet<Player>();
     private Cell[] cells = new Cell[64];
     private boolean isEnded;
     private String winner;
 
+    //Constructor
     public Game(Player[] players, Cell[] cells, boolean isEnded, String winner) {
         this.players = players;
         this.cells = cells;
@@ -13,6 +18,7 @@ public class Game {
         this.winner = winner;
     }
 
+    //starts a new turn
     public void newTurn(){
         while(isEnded!=true){
             for (Player player : players) {
@@ -21,6 +27,7 @@ public class Game {
         }
     }
 
+    //creates a new players after checking that the player doesn't already exist
     public String createPlayer(String username){
         Player player;
 
@@ -33,6 +40,7 @@ public class Game {
         return "Player added successfully";
     }
 
+    //lists all the players in the game
     public String listPlayers(Player[] players){
         String message = "Players: ";
 
@@ -43,6 +51,7 @@ public class Game {
         return message;
     }
 
+    //checks if a player doesn't already exist
     public boolean playerCheck(String username){
         for (Player player: players) {
             if(player.getUsername() == username)
@@ -52,6 +61,7 @@ public class Game {
         return false;
     }
 
+    //initializes the cells on the board
     public void initializeBoard(){
         for(int i=0; i<64; i++){
             cells[i] = new StandardCell(i,false);
@@ -66,10 +76,12 @@ public class Game {
         cells[27] = new GooseCell(27, false);
     }
 
+    //adds a players to the list of players in the game
     public void addPlayer(Player player){
         players[players.length] = player;
     }
 
+    //returns the players that occupy a certain cell on the board
     public Player[] getCellOccupants(int position){
         Player[] occupants = new Player[0];
 

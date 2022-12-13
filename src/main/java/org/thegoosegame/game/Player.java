@@ -10,6 +10,7 @@ public class Player {
     private int firstDice;
     private int secondDice;
 
+    //Constructor
     public Player(String username) {
         this.username = username;
         this.position = 0;
@@ -19,6 +20,7 @@ public class Player {
         this.secondDice = 0;
     }
 
+    //Overloading of the constructor
     public Player(String username, int position, int prevPosition, boolean hasWon, int firstDice, int secondDice) {
         this.username = username;
         this.position = position;
@@ -28,6 +30,7 @@ public class Player {
         this.secondDice = secondDice;
     }
 
+    //Implements the dice roll
     public void rollDices(){
         int newPosition;
 
@@ -55,17 +58,20 @@ public class Player {
         getGame().newTurn();
     }
 
+    //Moves the player from to a new position after rolling the dices
     public int moveForward(int firstDice, int secondDice){
         prevPosition = position;
         return position + firstDice + secondDice;
     }
 
+    //moves the player backwards on the board if the dice roll result is higher than what's needed to win the game
     public int bounce(int position){
         position = 63 - (position - 63);
 
         return position;
     }
 
+    //returns a string indicating the dice roll's result, the player's old position on the board and the player's new position
     public String showPlayerMovement(int firstDice, int secondDice, int oldPosition, int newPosition){
         return username + " rolls " + firstDice + ", " + secondDice + ". " + username + " moves from " + oldPosition + " to " + newPosition + ".";
     }
