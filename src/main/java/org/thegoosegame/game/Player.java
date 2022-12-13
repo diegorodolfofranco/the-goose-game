@@ -41,9 +41,7 @@ public class Player {
         newPosition = moveForward(firstDice, secondDice);
 
         if(newPosition>63)
-            newPosition = bounce(newPosition);
-
-        setPosition(newPosition);
+            position = newPosition;
 
         Player[] players = getGame().getCellOccupants(position);
         Cell[] cells = getGame().getCells();
