@@ -36,17 +36,34 @@ public class Player {
         prevPosition = position;
 
         newPosition = moveForward(firstDice, secondDice);
+
+        if(newPosition>63)
+            newPosition = bounce(newPosition);
+
         setPosition(newPosition);
+
+        Player[] players = getGame().getCellOccupants(position);
+        Cell[] cells = getGame().getCells();
+
+        for (Player player : players) {
+            if(player.getUsername() == getUsername())
+                if(cells[position].isCellOccupied() == true)
+                    cells[position].prank(prevPosition, position);
+                cells[position].move();
+        }
+
+        getGame().newTurn();
     }
 
     public int moveForward(int firstDice, int secondDice){
         prevPosition = position;
-        return position+firstDice+secondDice;
+        return position + firstDice + secondDice;
     }
 
     public int bounce(int position){
+        position = 63 - (position - 63);
 
-        return 0;
+        return position;
     }
 
     public String showPlayerMovement(int firstDice, int secondDice, int oldPosition, int newPosition){

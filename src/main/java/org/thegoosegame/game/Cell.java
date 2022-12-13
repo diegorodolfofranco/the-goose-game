@@ -3,7 +3,7 @@ package org.thegoosegame.game;
 public interface Cell {
     public void move();
 
-    public int prank();
+    public void prank(int prevPosition, int position);
 
     public boolean isCellOccupied();
 }
