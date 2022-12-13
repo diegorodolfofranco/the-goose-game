@@ -40,15 +40,33 @@ public class Player {
     }
 
     public int moveForward(int firstDice, int secondDice){
-        return 0;
+        prevPosition = position;
+        return position+firstDice+secondDice;
     }
 
     public int bounce(int position){
+
         return 0;
     }
 
     public String showPlayerMovement(int firstDice, int secondDice, int oldPosition, int newPosition){
         return username + " rolls " + firstDice + ", " + secondDice + ". " + username + " moves from " + oldPosition + " to " + newPosition + ".";
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public int getPrevPosition() {
+        return prevPosition;
+    }
+
+    public void setPrevPosition(int prevPosition) {
+        this.prevPosition = prevPosition;
     }
 
     public String getUsername() {

@@ -9,8 +9,14 @@ public class BridgeCell implements Cell{
         this.isOccupied = isOccupied;
     }
 
-    public int move(){
-        return 0;
+    public void move(){
+        Player[] players = new Player[0];
+        players = players[id].getGame().getCellOccupants(6);
+
+        for (Player player : players) {
+            player.setPrevPosition(player.getPosition());
+            player.setPosition(12);
+        }
     }
 
     public int prank(){

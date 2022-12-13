@@ -9,8 +9,8 @@ public class GooseCell implements Cell{
         this.isOccupied = isOccupied;
     }
 
-    public int move(){
-        return 0;
+    public void move(){
+
     }
 
     public int prank(){

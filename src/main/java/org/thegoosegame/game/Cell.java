@@ -1,7 +1,7 @@
 package org.thegoosegame.game;
 
 public interface Cell {
-    public int move();
+    public void move();
 
     public int prank();
 
