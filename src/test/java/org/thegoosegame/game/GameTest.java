@@ -8,10 +8,7 @@ class GameTest {
 
     @Test
     void newTurnTest() {
-        boolean isEnded;
-        Player player = new Player("Pippo");
 
-        assertTrue(isEnded == false);
     }
 
     @Test
