@@ -1,7 +1,10 @@
 package org.thegoosegame.game;
 
-public class GooseCell implements Cell{
-    private Game game;
+import java.util.List;
+import java.util.Set;
+
+public class GooseCell implements Cell {
+    private Game game = new Game();
     private int id;
     private boolean isOccupied;
 
@@ -10,25 +13,21 @@ public class GooseCell implements Cell{
         this.isOccupied = isOccupied;
     }
 
-    public void move(){
-        Player[] players = getGame().getPlayers();
-        int pos;
+    public void move(Player player, int position) {
+        Set<Player> players = game.getPlayers();
 
-        for (Player player : players) {
-            pos = player.getPosition();
-            if(pos == 5 || pos == 9 || pos == 14 || pos == 18 || pos == 23 || pos == 27)
-                player.setPosition(player.getPosition() + player.getFirstDice() + player.getSecondDice());
-        }
+        if (position == 5 || position == 9 || position == 14 || position == 18 || position == 23 || position == 27)
+            player.setPosition(position + player.getFirstDice() + player.getSecondDice());
     }
 
-    public void prank(int prevPosition, int position){
-        Player[] occupants = getGame().getCellOccupants(position);
+    public void prank(int prevPosition, int position) {
+        List<Player> occupants = game.getCellOccupants(position);
 
         for (Player player : occupants)
             player.setPosition(prevPosition);
     }
 
-    public boolean isCellOccupied(){
+    public boolean isCellOccupied() {
         return isOccupied;
     }
 
@@ -48,11 +47,7 @@ public class GooseCell implements Cell{
         this.id = id;
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
-    }
-
-    public void setOccupied(boolean occupied) {
+    public void setCellOccupied(boolean occupied) {
         isOccupied = occupied;
     }
 }

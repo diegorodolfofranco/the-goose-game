@@ -1,14 +1,17 @@
 package org.thegoosegame.game;
 
+import java.util.List;
+import java.util.Set;
+
 public class Player {
-    private Game game;
     private String username;
     private int position;
-
+    Game game = new Game();
     private int prevPosition;
     private boolean hasWon;
     private int firstDice;
     private int secondDice;
+    Cell c;
 
     //Constructor
     public Player(String username) {
@@ -30,52 +33,60 @@ public class Player {
         this.secondDice = secondDice;
     }
 
+    int i=0;
+
     //Implements the dice roll
-    public void rollDices(){
+    public void rollDices(Game game) {
         int newPosition;
 
-        firstDice = (int)(Math.random() * 6) + 1;
-        secondDice = (int)(Math.random() * 6) + 1;
+        //game = new Game(game.getPlayers(), game.getCells(), game.isEnded(), game.getWinner());
+
+        firstDice = (int) (Math.random() * 6) + 1;
+        secondDice = (int) (Math.random() * 6) + 1;
         prevPosition = position;
 
         newPosition = moveForward(firstDice, secondDice);
 
-        if(newPosition>63)
+        if (newPosition < 63) {
             position = newPosition;
-
-        Player[] players = getGame().getCellOccupants(position);
-        Cell[] cells = getGame().getCells();
-
-        for (Player player : players) {
-            if(player.getUsername() == getUsername())
-                if(cells[position].isCellOccupied() == true)
-                    cells[position].prank(prevPosition, position);
-                cells[position].move();
+            c.setId(position);
+            c.setCellOccupied(true);
         }
 
-        getGame().newTurn();
+        System.out.println(game.getId());
+
+        List<Player> occupants = game.getCellOccupants(position);
+        List<Cell> cells = game.getCells();
+
+        for (Player player : occupants) {
+            if (player.getUsername().equals(username))
+                if (c.isCellOccupied())
+                    c.prank(prevPosition, position);
+            c.move(player, position);
+        }
     }
 
     //Moves the player from to a new position after rolling the dices
-    public int moveForward(int firstDice, int secondDice){
+    public int moveForward(int firstDice, int secondDice) {
         prevPosition = position;
-        return position + firstDice + secondDice;
+        int newPosition = position + firstDice + secondDice;
+        c.setId(newPosition);
+        c.setCellOccupied(true);
+        return newPosition;
     }
 
     //moves the player backwards on the board if the dice roll result is higher than what's needed to win the game
-    public int bounce(int position){
+    public int bounce(int position) {
         position = 63 - (position - 63);
+        c.setId(position);
+        c.setCellOccupied(true);
 
         return position;
     }
 
     //returns a string indicating the dice roll's result, the player's old position on the board and the player's new position
-    public String showPlayerMovement(int firstDice, int secondDice, int oldPosition, int newPosition){
+    public String showPlayerMovement(int firstDice, int secondDice, int oldPosition, int newPosition) {
         return username + " rolls " + firstDice + ", " + secondDice + ". " + username + " moves from " + oldPosition + " to " + newPosition + ".";
-    }
-
-    public Game getGame() {
-        return game;
     }
 
     public void setGame(Game game) {
@@ -106,7 +117,7 @@ public class Player {
         this.position = newPosition;
     }
 
-    public boolean isHasWon() {
+    public boolean HasWon() {
         return hasWon;
     }
 

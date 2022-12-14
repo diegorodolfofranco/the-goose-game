@@ -1,7 +1,9 @@
 package org.thegoosegame.game;
 
+import java.util.List;
+
 public class StandardCell implements Cell{
-    private Game game;
+    private Game game = new Game();
     private int id;
     private boolean isOccupied;
 
@@ -11,13 +13,13 @@ public class StandardCell implements Cell{
         this.isOccupied = isOccupied;
     }
 
-    public void move(){
+    public void move(Player player, int position){
 
     }
 
     //if player A moves to a cell where there's already at least another player B, player B moves to player A's old position.
     public void prank(int prevPosition, int position){
-        Player[] occupants = getGame().getCellOccupants(position);
+        List<Player> occupants = game.getCellOccupants(position);
 
         for (Player player : occupants)
             player.setPosition(prevPosition);
@@ -44,11 +46,7 @@ public class StandardCell implements Cell{
         this.id = id;
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
-    }
-
-    public void setOccupied(boolean occupied) {
+    public void setCellOccupied(boolean occupied) {
         isOccupied = occupied;
     }
 }

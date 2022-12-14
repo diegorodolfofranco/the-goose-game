@@ -1,7 +1,11 @@
 package org.thegoosegame.game;
 
-public class BridgeCell implements Cell{
-    private Game game;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class BridgeCell implements Cell {
+    private Game game = new Game();
     private int id;
     private boolean isOccupied;
 
@@ -10,24 +14,22 @@ public class BridgeCell implements Cell{
         this.isOccupied = isOccupied;
     }
 
-    public void move(){
-        Player[] players = new Player[0];
-        players = players[id].getGame().getCellOccupants(6);
+    public void move(Player player, int position) {
+        Set<Player> players = new HashSet<Player>();
+        //players = players[id].getGame().getCellOccupants(6);
 
-        for (Player player : players) {
-            player.setPrevPosition(player.getPosition());
-            player.setPosition(12);
-        }
+        player.setPrevPosition(player.getPosition());
+        player.setPosition(12);
     }
 
-    public void prank(int prevPosition, int position){
-        Player[] occupants = getGame().getCellOccupants(position);
+    public void prank(int prevPosition, int position) {
+        List<Player> occupants = game.getCellOccupants(position);
 
         for (Player player : occupants)
             player.setPosition(prevPosition);
     }
 
-    public boolean isCellOccupied(){
+    public boolean isCellOccupied() {
         return isOccupied;
     }
 
@@ -47,11 +49,7 @@ public class BridgeCell implements Cell{
         this.id = id;
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
-    }
-
-    public void setOccupied(boolean occupied) {
+    public void setCellOccupied(boolean occupied) {
         isOccupied = occupied;
     }
 }
