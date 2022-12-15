@@ -38,14 +38,14 @@ public class Game {
         this.winner = winner;
     }*/
 
-    public void startGame(String id, Player firstPlayer, List<Cell> cells){
-        newTurn(this, firstPlayer);
-        firstDice = (int) (Math.random() * 6) + 1;
-        secondDice = (int) (Math.random() * 6) + 1;
+    public void startGame(String id, Player firstPlayer){
+        newTurn(this, players.iterator().next());
     }
 
     //starts a new turn
     public void newTurn(Game game, Player player) {
+        firstDice = (int) (Math.random() * 6) + 1;
+        secondDice = (int) (Math.random() * 6) + 1;
         while(!isEnded) {
                 if(player.getPosition()!=63)
                     player.rollDices(game);

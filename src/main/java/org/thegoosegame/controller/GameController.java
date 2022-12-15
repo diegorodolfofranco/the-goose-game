@@ -17,10 +17,12 @@ public class GameController {
     private final List<Cell> cells = new ArrayList<>();
     private boolean isEnded;
     private String winner;
+    private int firstDice;
+    private int secondDice;
 
     @GetMapping("/game")
     public Game game(@RequestParam(value="player") String username){
-        Game game = new Game(id, players, cells, isEnded, winner);
+        Game game = new Game(id, players, cells, isEnded, winner,firstDice,secondDice);
         players.add(new Player(game.getId(),username));
         game.initializeBoard();
 
