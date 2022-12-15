@@ -30,7 +30,7 @@ public class PlayerController {
 
     @GetMapping("/player")
     public Player player(@RequestParam(value = "username") String username){
-        return new Player(gameId, username, position, prevPosition, hasWon, firstDice, secondDice);
+        return new Player(gameId, username, position, prevPosition, hasWon);
     }
 
     /*@GetMapping("players")

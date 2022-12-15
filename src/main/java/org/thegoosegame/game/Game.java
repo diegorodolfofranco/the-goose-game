@@ -16,6 +16,8 @@ public class Game {
     private List<Cell> cells;
     private boolean isEnded;
     private String winner;
+    private int firstDice;
+    private int secondDice;
 
     /*public Game(){
         this("", new LinkedHashSet<>(), new ArrayList<>(), false, "");
@@ -37,8 +39,9 @@ public class Game {
     }*/
 
     public void startGame(String id, Player firstPlayer, List<Cell> cells){
-        Game game = new Game(id,players,cells,false,"");
-        newTurn(game, firstPlayer);
+        newTurn(this, firstPlayer);
+        firstDice = (int) (Math.random() * 6) + 1;
+        secondDice = (int) (Math.random() * 6) + 1;
     }
 
     //starts a new turn

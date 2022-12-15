@@ -16,8 +16,6 @@ public class Player {
     private int position;
     private int prevPosition;
     private boolean hasWon;
-    private int firstDice;
-    private int secondDice;
 
     //Constructor
     public Player(String gameId, String username) {
@@ -26,18 +24,14 @@ public class Player {
         this.position = 0;
         this.prevPosition = 0;
         this.hasWon = false;
-        this.firstDice = 0;
-        this.secondDice = 0;
     }
 
-    public Player(String gameId, String username,int position,int prevPosition,boolean hasWon,int firstDice,int secondDice) {
+    public Player(String gameId, String username,int position,int prevPosition,boolean hasWon) {
         this.gameId = gameId;
         this.username = username;
         this.position = position;
         this.prevPosition = prevPosition;
         this.hasWon = hasWon;
-        this.firstDice = firstDice;
-        this.secondDice = secondDice;
     }
 
     //Implements the dice roll
@@ -46,11 +40,9 @@ public class Player {
 
         //game = new Game(game.getPlayers(), game.getCells(), game.isEnded(), game.getWinner());
 
-        firstDice = (int) (Math.random() * 6) + 1;
-        secondDice = (int) (Math.random() * 6) + 1;
         prevPosition = position;
 
-        newPosition = moveForward(firstDice, secondDice);
+        newPosition = moveForward(game.getFirstDice(), game.getSecondDice());
 
         if (newPosition < 63) {
             position = newPosition;
