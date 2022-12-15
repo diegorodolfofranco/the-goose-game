@@ -1,9 +1,10 @@
-# the-goose-game
+# The Goose Game by DRF
 **The Goose Game by DRF**
 
 
 
-The Goose Game Kata
+The Goose Game Kata\
+\
 Goose game is a game where two or more players move pieces around a track by rolling a die. The aim of the game is to reach square number sixty-three before any of the other players and avoid obstacles. (wikipedia)
 
 This kata has been invented by Matteo Vaccari, you can find the original slides here.
