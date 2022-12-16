@@ -10,7 +10,7 @@ import lombok.*;
 public class StandardCell implements Cell{
     Game game = new Game();
     String gameId = getGameId();
-    Player player = new Player();
+    Player player;
     private int id;
 
     //constructor

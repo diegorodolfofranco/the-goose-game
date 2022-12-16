@@ -38,17 +38,17 @@ public class Game {
         this.winner = winner;
     }*/
 
-    public void startGame(String id, Player firstPlayer){
+    /*public void startGame(String id, Player firstPlayer){
         newTurn(this, players.iterator().next());
-    }
+    }*/
 
     //starts a new turn
-    public void newTurn(Game game, Player player) {
+    public void newTurn(Player player) {
         firstDice = (int) (Math.random() * 6) + 1;
         secondDice = (int) (Math.random() * 6) + 1;
         while(!isEnded) {
                 if(player.getPosition()!=63)
-                    player.rollDices(game);
+                    player.rollDices(this);
                 else {
                     isEnded = true;
                     winner = player.getUsername();
@@ -113,11 +113,6 @@ public class Game {
         cells.add(new GooseCell(27));
 
         return cells;
-    }
-
-    //adds a players to the list of players in the game
-    public void addPlayer(Player player) {
-        players.add(player);
     }
 
     //returns the players that occupy a certain cell on the board
