@@ -13,7 +13,7 @@ public class CellController {
     private int id;
     private boolean isOccupied;
 
-    @GetMapping("/cell")
+    /*@GetMapping("/cell")
     public Cell cell(@RequestParam(value = "id") int id){
         if(id<0 || id>63){
             return new StandardCell(-1);}
@@ -23,5 +23,5 @@ public class CellController {
             return new GooseCell(id);
             else
                 return new StandardCell(id);
-    }
+    }*/
 }

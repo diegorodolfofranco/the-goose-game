@@ -22,8 +22,8 @@ public class GameController {
 
     @GetMapping("/game")
     public Game game(@RequestParam(value="player") String username){
-        Game game = new Game(id, players, cells, isEnded, winner,firstDice,secondDice);
-        players.add(new Player(game.getId(),username));
+        //players.add(new Player(username));
+        Game game = new Game(players, cells, isEnded, winner,firstDice,secondDice);
         game.initializeBoard();
 
         return game;

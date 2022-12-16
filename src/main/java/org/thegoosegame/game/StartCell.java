@@ -1,28 +1,29 @@
 package org.thegoosegame.game;
 
+import lombok.*;
+
 import java.util.Set;
 
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class StartCell implements Cell {
-    Game game = new Game();
+    String gameId;
     Set<Player> players;
     private int id;
 
-    public StartCell(int id) {
-        this.players = game.getCellOccupants(id);
+    public StartCell(String gameId, int id) {
+        this.gameId = gameId;
         this.id = id;
     }
 
-    public void move(Player player, int position) {
-        /*
-        Set<Player> players = new LinkedHashSet<>();
-        players = players[id].getGame().getCellOccupants(6);
-        */
-
-        player.setPrevPosition(player.getPosition());
-        player.setPosition(12);
+    public int land(Player player){
+        player.setCell(this);
+        return 0;
     }
 
-    public void prank(int prevPosition, int position){
-
+    public int getId() {
+        return id;
     }
 }

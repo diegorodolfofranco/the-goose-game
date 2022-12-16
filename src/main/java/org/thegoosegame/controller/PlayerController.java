@@ -3,6 +3,7 @@ package org.thegoosegame.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.thegoosegame.game.Cell;
 import org.thegoosegame.game.Game;
 import org.thegoosegame.game.Player;
 import org.thegoosegame.repository.PlayerRepository;
@@ -29,8 +30,8 @@ public class PlayerController {
     }*/
 
     @GetMapping("/player")
-    public Player player(@RequestParam(value = "username") String username){
-        return new Player(gameId, username, position, prevPosition, hasWon);
+    public Player player(@RequestParam(value = "username") String username, Cell cell){
+        return new Player(username, cell);
     }
 
     /*@GetMapping("players")

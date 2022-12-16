@@ -1,27 +1,49 @@
 package org.thegoosegame.game;
 
+import lombok.*;
+
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class BridgeCell implements Cell {
-    Game game = new Game();
+    String gameId;
     Player player;
     private int id;
 
-    public BridgeCell(int id) {
-        this.player = game.getCellOccupant(id);
+    public BridgeCell(String gameId, int id) {
+        this.gameId = gameId;
         this.id = id;
     }
 
-    public void move(Player player, int position) {
-        /*
-        Set<Player> players = new LinkedHashSet<>();
-        players = players[id].getGame().getCellOccupants(6);
-        */
+    public int land(Player player){
+        Game game = new Game();
 
-        player.setPrevPosition(player.getPosition());
-        player.setPosition(12);
+        if(getPlayer()!=null){
+            System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+                    + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
+                    + ". On " + getId() + " there is " + getPlayer().getUsername() + ", who moves to "
+                    + player.getCell().getId());
+
+            Player prankedPlayer = getPlayer();
+            Cell prankDestinationCell = player.getCell();
+
+            prankedPlayer.setCell(prankDestinationCell);
+        }
+        else
+            System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+                    + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to 12.");
+
+        player.setCell(this);
+
+        return 12;
     }
 
-    public void prank(int prevPosition, int position) {
-        Player occupant = game.getCellOccupant(position);
-        occupant.setPosition(player.getPrevPosition());
+    public int getId() {
+        return id;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

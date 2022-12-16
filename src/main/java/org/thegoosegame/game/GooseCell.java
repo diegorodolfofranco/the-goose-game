@@ -1,25 +1,48 @@
 package org.thegoosegame.game;
 
-import java.util.List;
-import java.util.Objects;
+import lombok.*;
 
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class GooseCell implements Cell {
-    Game game = new Game();
-    Player player = new Player();
+    String gameId;
+    Player player;
     private int id;
 
-    public GooseCell(int id) {
-        this.player = game.getCellOccupant(id);
+    public GooseCell(String gameId, int id) {
+        this.gameId = gameId;
         this.id = id;
     }
 
-    public void move(Player player, int position) {
-        if (position == 5 || position == 9 || position == 14 || position == 18 || position == 23 || position == 27)
-            player.setPosition(position + game.getFirstDice() + game.getSecondDice());
+    public int land(Player player) {
+        Game game = new Game();
+        //Cell cell = this;
+
+        int destination = getId() + game.getFirstDice() + game.getSecondDice();
+
+        if(destination!=5 && destination!=9 && destination!= 13 && destination!= 18 && destination!=23 && destination!=27){
+        System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+                + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
+                + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination);
+        }
+        else {
+            System.out.println(player.getUsername() + " moves again and goes to " + destination + ", The Goose.");
+            int newDestination = destination + game.getFirstDice() + game.getSecondDice();
+            game.getCells().get(newDestination).land(player);
+        }
+
+        player.setCell(this);
+
+        return destination;
     }
 
-    public void prank(int prevPosition, int position) {
-        Player occupant = game.getCellOccupant(position);
-        occupant.setPosition(player.getPrevPosition());
+    public int getId() {
+        return id;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

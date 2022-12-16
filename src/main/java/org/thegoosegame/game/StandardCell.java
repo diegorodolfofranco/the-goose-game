@@ -4,29 +4,47 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class StandardCell implements Cell{
-    Game game = new Game();
-    String gameId = getGameId();
+    String gameId;
     Player player;
     private int id;
 
     //constructor
-    public StandardCell(int id) {
-        this.gameId = game.getId();
-        this.player = game.getCellOccupant(id);
+    public StandardCell(String gameId, int id) {
+        this.gameId = gameId;
         this.id = id;
     }
 
-    public void move(Player player, int position){
+    public int land(Player player){
+        Game game = new Game();
+        if(getPlayer()!=null){
+            System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+                    + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
+                    + ". On " + getId() + " there is " + getPlayer().getUsername() + ", who moves to "
+                    + player.getCell().getId());
 
+            Player prankedPlayer = getPlayer();
+            Cell prankDestinationCell = player.getCell();
+
+            prankedPlayer.setCell(prankDestinationCell);
+        }
+        else
+            System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+                    + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
+                    + ".");
+
+        player.setCell(this);
+
+        return id;
     }
 
-    //if player A moves to a cell where there's already at least another player B, player B moves to player A's old position.
-    public void prank(int prevPosition, int position){
-        Player occupant = game.getCellOccupant(position);
-        occupant.setPosition(player.getPrevPosition());
+    public int getId() {
+        return id;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

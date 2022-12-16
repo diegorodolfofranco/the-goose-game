@@ -12,11 +12,12 @@ class GameTest {
     @Test
     void create_new_game() {
         Game game = new Game(
-                UUID.randomUUID().toString(),
                 new LinkedHashSet<>(),
                 new ArrayList<>(),
                 false,
-                "Maria");
+                "Maria",
+                0,
+                0);
 
         assertNotNull(game);
         assertFalse(game.isEnded());
