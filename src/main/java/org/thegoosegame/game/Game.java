@@ -29,13 +29,8 @@ public class Game {
     }
 
     //starts the game
-    public void startGame(Player player, boolean dicesRolled){
-        while(!isEnded) {
-            if(dicesRolled)
-                newTurn(player, firstDice, secondDice);
-            else
-                newTurn(player);
-        }
+    public void startGame(Game game, Player player){
+        newTurn(game, player, firstDice, secondDice);
     }
 
     //initializes the cells on the board
@@ -58,11 +53,11 @@ public class Game {
     }
 
     //creates a new players after checking that the player doesn't already exist
-    public String createPlayer(String username) {
+    public String createPlayer(String username, Game game) {
         if (playerCheck(username))
             return username + ": already existing player.";
         else
-            players.add(new Player(username, getCells().get(0)));
+            players.add(new Player(username, getId(), getCells().get(0)));
 
         listPlayers(getPlayers());
         return "Player added successfully";
@@ -89,26 +84,18 @@ public class Game {
         return message.toString();
     }
 
-    //starts a new turn
-    public void newTurn(Player currentPlayer) {
-        currentPlayer.rollDices(currentPlayer,firstDice,secondDice);
+    public void newTurn(Game game, Player currentPlayer, int firstDice, int secondDice) {
+        currentPlayer.rollDices(game, currentPlayer, firstDice, secondDice);
     }
 
-    public void newTurn(Player currentPlayer, int firstDice, int secondDice) {
-
-        currentPlayer.rollDices(currentPlayer,firstDice,secondDice);
-    }
-
-    public void movePlayer(Player player, Cell currentCell){
+    public void movePlayer(Game game, Player player, Cell currentCell){
         int newPosition = currentCell.getId() + firstDice + secondDice;
 
         if(newPosition>63)
             newPosition = bounce(newPosition);
 
-        int destinationCellPosition = cells.get(newPosition).land(player);
+        int destinationCellPosition = cells.get(newPosition).land(game, player, firstDice, secondDice);
         player.setCell(cells.get(destinationCellPosition));
-
-        Game game = new Game();
 
         if(destinationCellPosition==63){
             System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()

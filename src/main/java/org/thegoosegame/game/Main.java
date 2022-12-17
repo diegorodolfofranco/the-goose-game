@@ -7,7 +7,6 @@ class Main {
         Set<Player> players = new LinkedHashSet<>();
         List<Cell> cells = new ArrayList<>();
         Game game = new Game(players, cells, false, "");
-        boolean dicesRolled;
         int firstDice, secondDice;
 
         Scanner scanner = new Scanner(System.in);
@@ -21,12 +20,11 @@ class Main {
                 command = scanner.nextLine();
             }
             else if (command.substring(0, 4).compareTo("add ") == 0) {
-                System.out.println(game.createPlayer(command.substring(4)));
+                System.out.println(game.createPlayer(command.substring(4), game));
                 System.out.println(game.listPlayers(players));
                 command = scanner.nextLine();
                 } else if (command.substring(0, 4).compareTo("move") == 0 && command.length()>5) {
                     if (!command.contains(",")) {
-                        dicesRolled = true;
                         String playerUsername = command.substring(5);
                         System.out.println(playerUsername);
                         Player player;
@@ -38,13 +36,12 @@ class Main {
                                 secondDice = (int) (Math.random() * 6) + 1;
                                 game.setFirstDice(firstDice);
                                 game.setSecondDice(secondDice);
-                                game.startGame(player, dicesRolled);
+                                game.startGame(game, player);
                             }
                         }
 
                         command = scanner.nextLine();
                     } else {
-                        dicesRolled = false;
                         String playerUsername = command.substring(5, command.indexOf(" ", command.indexOf(" ") + 1));
 
                         boolean playerExists = game.playerCheck(playerUsername);
@@ -55,11 +52,16 @@ class Main {
                             for (Player p : players) {
                                 if (p.getUsername().equals(playerUsername)){
                                     player = p;
-                                    firstDice = Integer.parseInt(command.substring(command.indexOf(',') - 1), command.indexOf(','));
-                                    secondDice = Integer.parseInt(command.substring(command.indexOf(',')));
-                                    game.setFirstDice(firstDice);
-                                    game.setSecondDice(secondDice);
-                                    game.startGame(player, dicesRolled);
+                                    firstDice = Integer.parseInt(command.substring(command.indexOf(',') - 1, command.indexOf(',')));
+                                    secondDice = Integer.parseInt(command.substring(command.indexOf(',')+1).trim());
+                                    if((firstDice>=1 && firstDice<=6) && (secondDice>=1 && secondDice<=6)) {
+                                        game.setFirstDice(firstDice);
+                                        game.setSecondDice(secondDice);
+                                        game.startGame(game, player);
+                                    } else {
+                                        System.out.println("ERROR: the value of one or both dices is incorrect");
+                                        command = scanner.nextLine();
+                                    }
                                 }
                             }
                         }
@@ -71,6 +73,7 @@ class Main {
                     System.out.println("ERROR: wrong move command!");
                     command = scanner.nextLine();
                 }
+
         }
 
         System.out.println("And the winner is... " + game.getWinner().toUpperCase() + "!!!");

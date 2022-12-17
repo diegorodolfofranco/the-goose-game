@@ -18,7 +18,7 @@ public class StartCell implements Cell {
         this.id = id;
     }
 
-    public int land(Player player){
+    public int land(Game game, Player player, int firstDice, int secondDice){
         player.setCell(this);
         return 0;
     }

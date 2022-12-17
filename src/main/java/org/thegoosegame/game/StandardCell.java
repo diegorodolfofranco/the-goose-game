@@ -17,10 +17,9 @@ public class StandardCell implements Cell{
         this.id = id;
     }
 
-    public int land(Player player){
-        Game game = new Game();
+    public int land(Game game, Player player, int firstDice, int secondDice){
         if(getPlayer()!=null){
-            System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+            System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
                     + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
                     + ". On " + getId() + " there is " + getPlayer().getUsername() + ", who moves to "
                     + player.getCell().getId());
@@ -31,7 +30,7 @@ public class StandardCell implements Cell{
             prankedPlayer.setCell(prankDestinationCell);
         }
         else
-            System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+            System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
                     + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
                     + ".");
 
