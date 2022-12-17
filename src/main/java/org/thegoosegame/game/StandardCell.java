@@ -7,8 +7,8 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class StandardCell implements Cell{
-    String gameId;
-    Player player;
+    private String gameId;
+    private Player player;
     private int id;
 
     //constructor

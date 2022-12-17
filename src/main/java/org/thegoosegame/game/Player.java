@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class Player {
     private String username;
-    String gameId;
+    private String gameId;
     private Cell cell;
 
     public Player(String username, String gameId, Cell cell){

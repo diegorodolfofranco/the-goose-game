@@ -7,8 +7,8 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class BridgeCell implements Cell {
-    String gameId;
-    Player player;
+    private String gameId;
+    private Player player;
     private int id;
 
     public BridgeCell(String gameId, int id) {

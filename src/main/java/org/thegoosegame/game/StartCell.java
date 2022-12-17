@@ -9,8 +9,8 @@ import java.util.Set;
 @EqualsAndHashCode
 @ToString
 public class StartCell implements Cell {
-    String gameId;
-    Set<Player> players;
+    private String gameId;
+    private Set<Player> players;
     private int id;
 
     public StartCell(String gameId, int id) {
