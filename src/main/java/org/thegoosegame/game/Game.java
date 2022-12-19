@@ -94,6 +94,8 @@ public class Game {
         if(newPosition>63)
             newPosition = bounce(newPosition);
 
+        System.out.print(player.getUsername() + " rolls " + firstDice + ", " + secondDice + ". ");
+
         int destinationCellPosition = cells.get(newPosition).land(game, player, firstDice, secondDice);
         player.setCell(cells.get(destinationCellPosition));
 

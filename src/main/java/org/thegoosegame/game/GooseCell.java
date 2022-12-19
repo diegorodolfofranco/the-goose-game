@@ -20,12 +20,12 @@ public class GooseCell implements Cell {
         int destination = getId() + firstDice + secondDice;
 
         if(destination!=5 && destination!=9 && destination!= 13 && destination!= 18 && destination!=23 && destination!=27){
-        System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
-                + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
-                + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination);
+        System.out.println(player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
+                + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination + ".");
         }
         else {
-            System.out.println(player.getUsername() + " moves again and goes to " + destination + ", The Goose.");
+            System.out.println(player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
+                    + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination + ", The Goose. ");
             int newDestination = destination + firstDice + secondDice;
             game.getCells().get(newDestination).land(game, player, firstDice, secondDice);
         }

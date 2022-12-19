@@ -1,6 +1,10 @@
 package org.thegoosegame.game;
 
 import lombok.*;
+import org.hibernate.annotations.Table;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Getter
 @Setter

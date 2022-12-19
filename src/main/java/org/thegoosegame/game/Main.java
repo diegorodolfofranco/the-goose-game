@@ -1,5 +1,8 @@
 package org.thegoosegame.game;
 
+import org.thegoosegame.*;
+import org.thegoosegame.controller.GameController;
+
 import java.util.*;
 
 class Main {
@@ -12,6 +15,7 @@ class Main {
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
 
+        GameController gameController = new GameController();
         game.initializeBoard();
 
         while(!game.isEnded()) {
@@ -22,6 +26,7 @@ class Main {
             else if (command.substring(0, 4).compareTo("add ") == 0) {
                 System.out.println(game.createPlayer(command.substring(4), game));
                 System.out.println(game.listPlayers(players));
+                gameController.addPlayer(game, command.substring(4));
                 command = scanner.nextLine();
                 } else if (command.substring(0, 4).compareTo("move") == 0 && command.length()>5) {
                     if (!command.contains(",")) {
