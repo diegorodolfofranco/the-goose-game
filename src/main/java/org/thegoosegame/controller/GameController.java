@@ -16,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import java.util.*;
 
 @RestController
-@RequestMapping("/game")
 public class GameController {
 
     //private GameRepository gameRepository;
@@ -31,9 +30,52 @@ public class GameController {
 
     @GetMapping("/game")
     public Set<Player> addPlayer(Game game, @RequestParam(value="player") String username){
+        game.initializeBoard();
         game.createPlayer(username, game);
-        Set<Player> players = game.getPlayers();
 
-        return players;
+        return game.getPlayers();
+    }
+
+    @GetMapping("/game/roll")
+    public Game moveThePlayer(Game game, @RequestParam(value="player") String username, @RequestParam(value="firstDice") int firstDice, @RequestParam(value="secondDice") int secondDice) {
+        boolean playerExists = game.playerCheck(username);
+
+        Set<Player> players = game.getPlayers();
+        Player player;
+
+        if (playerExists) {
+            for (Player p : players) {
+                if (p.getUsername().equals(username)) {
+                    player = p;
+                    if ((firstDice >= 1 && firstDice <= 6) && (secondDice >= 1 && secondDice <= 6)) {
+                        game.setFirstDice(firstDice);
+                        game.setSecondDice(secondDice);
+                        game.startGame(game, player);
+                    }
+                }
+            }
+        }
+        return game;
+    }
+
+    @GetMapping("/game/game-rolls")
+    public Game gameMovesThePlayer(Game game, @RequestParam(value="player") String username, int firstDice, int secondDice){
+        boolean playerExists = game.playerCheck(username);
+        Set<Player> players = game.getPlayers();
+        Player player;
+
+        if(playerExists) {
+            for (Player p : players) {
+                if (p.getUsername().equals(username)) {
+                    player = p;
+                    if ((firstDice >= 1 && firstDice <= 6) && (secondDice >= 1 && secondDice <= 6)) {
+                        game.setFirstDice(firstDice);
+                        game.setSecondDice(secondDice);
+                        game.startGame(game, player);
+                    }
+                }
+            }
+        }
+        return game;
     }
 }

@@ -56,8 +56,11 @@ public class Game {
     public String createPlayer(String username, Game game) {
         if (playerCheck(username))
             return username + ": already existing player.";
-        else
-            players.add(new Player(username, game.getId(), getCells().get(0)));
+        else {
+            Player player = new Player(username, game.getId(), getCells().get(0));
+            players.add(player);
+            getCells().get(0).setPlayer(player);
+        }
 
         listPlayers(getPlayers());
         return "Player added successfully";

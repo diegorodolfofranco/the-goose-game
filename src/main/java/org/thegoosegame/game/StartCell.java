@@ -2,6 +2,7 @@ package org.thegoosegame.game;
 
 import lombok.*;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
@@ -10,7 +11,7 @@ import java.util.Set;
 @ToString
 public class StartCell implements Cell {
     private String gameId;
-    private Set<Player> players;
+    private Set<Player> players = new LinkedHashSet<>();
     private int id;
 
     public StartCell(String gameId, int id) {
@@ -25,5 +26,9 @@ public class StartCell implements Cell {
 
     public int getId() {
         return id;
+    }
+
+    public void setPlayer(Player player){
+        players.add(player);
     }
 }

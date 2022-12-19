@@ -42,6 +42,7 @@ class Main {
                                 game.setFirstDice(firstDice);
                                 game.setSecondDice(secondDice);
                                 game.startGame(game, player);
+                                gameController.moveThePlayer(game,playerUsername,firstDice,secondDice);
                             }
                         }
 
@@ -63,6 +64,7 @@ class Main {
                                         game.setFirstDice(firstDice);
                                         game.setSecondDice(secondDice);
                                         game.startGame(game, player);
+                                        gameController.gameMovesThePlayer(game,playerUsername,firstDice,secondDice);
                                     } else {
                                         System.out.println("ERROR: the value of one or both dices is incorrect");
                                         command = scanner.nextLine();
