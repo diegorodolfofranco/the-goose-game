@@ -17,7 +17,6 @@ import java.util.*;
 
 @RestController
 public class GameController {
-
     //private GameRepository gameRepository;
 
     /*@GetMapping("/game")
@@ -59,20 +58,21 @@ public class GameController {
     }
 
     @GetMapping("/game/game-rolls")
-    public Game gameMovesThePlayer(Game game, @RequestParam(value="player") String username, int firstDice, int secondDice){
+    public Game gameMovesThePlayer(Game game, @RequestParam(value="player") String username){
         boolean playerExists = game.playerCheck(username);
         Set<Player> players = game.getPlayers();
         Player player;
+        int firstDice, secondDice;
 
         if(playerExists) {
             for (Player p : players) {
                 if (p.getUsername().equals(username)) {
                     player = p;
-                    if ((firstDice >= 1 && firstDice <= 6) && (secondDice >= 1 && secondDice <= 6)) {
-                        game.setFirstDice(firstDice);
-                        game.setSecondDice(secondDice);
-                        game.startGame(game, player);
-                    }
+                    firstDice = (int) (Math.random() * 6) + 1;
+                    secondDice = (int) (Math.random() * 6) + 1;
+                    game.setFirstDice(firstDice);
+                    game.setSecondDice(secondDice);
+                    game.startGame(game, player);
                 }
             }
         }
