@@ -1,10 +1,6 @@
 package org.thegoosegame.game;
 
 import lombok.*;
-import org.hibernate.annotations.Table;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Getter
 @Setter
@@ -16,13 +12,14 @@ public class Player {
     private String gameId;
     private Cell cell;
 
+    //constructor
     public Player(String username, String gameId, Cell cell){
         this.username = username;
         this.gameId = gameId;
         this.cell = cell;
     }
 
-    //Implements the dice roll
+    //implements the dice roll
     public void rollDices(Game game, Player currentPlayer, int firstDice, int secondDice) {
         game.movePlayer(game, currentPlayer, cell);
     }

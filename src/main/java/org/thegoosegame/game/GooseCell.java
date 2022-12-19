@@ -11,11 +11,13 @@ public class GooseCell implements Cell {
     private Player player;
     private int id;
 
+    //constructor
     public GooseCell(String gameId, int id) {
         this.gameId = gameId;
         this.id = id;
     }
 
+    //welcomes the player to the cell
     public int land(Game game, Player player, int firstDice, int secondDice) {
         int destination = getId() + firstDice + secondDice;
 
@@ -35,14 +37,17 @@ public class GooseCell implements Cell {
         return destination;
     }
 
+    //returns the cell's id
     public int getId() {
         return id;
     }
 
+    //returns the cell's occupant
     public Player getPlayer() {
         return player;
     }
 
+    //sets the cell's occupant
     public void setPlayer(Player player){
         this.player = player;
     }

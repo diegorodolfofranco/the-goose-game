@@ -19,6 +19,7 @@ public class Game {
     private int firstDice;
     private int secondDice;
 
+    //constructor
     Game(Set<Player> players, List<Cell> cells, boolean isEnded, String winner) {
         this.players = players;
         this.cells = cells;
@@ -33,7 +34,7 @@ public class Game {
         newTurn(game, player, firstDice, secondDice);
     }
 
-    //initializes the cells on the board
+    //initializes the cells on the game board
     public void initializeBoard() {
         cells.add(new StartCell(getId(), 0));
 
@@ -52,7 +53,7 @@ public class Game {
         cells.set(27, new GooseCell(getId(), 27));
     }
 
-    //creates a new players after checking that the player doesn't already exist
+    //creates a new players after checking if the player doesn't already exist
     public String createPlayer(String username, Game game) {
         if (playerCheck(username))
             return username + ": already existing player.";
@@ -66,7 +67,7 @@ public class Game {
         return "Player added successfully";
     }
 
-    //checks if a player doesn't already exist
+    //checks if a player already exist
     public boolean playerCheck(String username) {
         for (Player player : players) {
             if (player.getUsername().equals(username))
@@ -87,10 +88,12 @@ public class Game {
         return message.toString();
     }
 
+    //starts a new turn
     public void newTurn(Game game, Player currentPlayer, int firstDice, int secondDice) {
         currentPlayer.rollDices(game, currentPlayer, firstDice, secondDice);
     }
 
+    //moves the player to a new cell
     public void movePlayer(Game game, Player player, Cell currentCell){
         int newPosition = currentCell.getId() + firstDice + secondDice;
 
@@ -111,6 +114,7 @@ public class Game {
         }
     }
 
+    //bounces the player if he doesn't roll the exact number of cells needed to reach the winning one
     public int bounce(int newPosition){
         newPosition = 63 - (newPosition - 63);
         return newPosition;

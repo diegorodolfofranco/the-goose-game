@@ -14,20 +14,24 @@ public class StartCell implements Cell {
     private Set<Player> players = new LinkedHashSet<>();
     private int id;
 
+    //constructor
     public StartCell(String gameId, int id) {
         this.gameId = gameId;
         this.id = id;
     }
 
+    //welcomes a player to the cell
     public int land(Game game, Player player, int firstDice, int secondDice){
         player.setCell(this);
         return 0;
     }
 
+    //returns the cell's id
     public int getId() {
         return id;
     }
 
+    //sets the cell's occupant
     public void setPlayer(Player player){
         players.add(player);
     }

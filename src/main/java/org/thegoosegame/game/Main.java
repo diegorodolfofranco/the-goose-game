@@ -1,6 +1,5 @@
 package org.thegoosegame.game;
 
-import org.thegoosegame.*;
 import org.thegoosegame.controller.GameController;
 
 import java.util.*;
@@ -12,12 +11,16 @@ class Main {
         Game game = new Game(players, cells, false, "");
         int firstDice, secondDice;
 
+        //input scanner
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
 
         GameController gameController = new GameController();
+
+        //initializes the game board
         game.initializeBoard();
 
+        //game
         while(!game.isEnded()) {
             if (command.length() < 4 || (command.substring(0, 4).compareTo("add ") != 0 && command.substring(0, 4).compareTo("move") != 0)){
                 System.out.println("ERROR: wrong command!");
@@ -80,9 +83,9 @@ class Main {
                     System.out.println("ERROR: wrong move command!");
                     command = scanner.nextLine();
                 }
-
         }
 
+        //prints the winner at the end of the game
         System.out.println("And the winner is... " + game.getWinner().toUpperCase() + "!!!");
     }
 }
