@@ -1,4 +1,4 @@
-package org.thegoosegame.game;
+package org.thegoosegame.model;
 
 import lombok.*;
 
@@ -6,13 +6,13 @@ import lombok.*;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class BridgeCell implements Cell {
+public class StandardCell implements Cell{
     private String gameId;
     private Player player;
     private int id;
 
     //constructor
-    public BridgeCell(String gameId, int id) {
+    public StandardCell(String gameId, int id) {
         this.gameId = gameId;
         this.id = id;
     }
@@ -21,22 +21,23 @@ public class BridgeCell implements Cell {
     public int land(Game game, Player player, int firstDice, int secondDice){
         if(getPlayer()!=null){
             System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
-                    + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to " + getId()
+                    + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + getId()
                     + ". On " + getId() + " there is " + getPlayer().getUsername() + ", who moves to "
-                    + player.getCell().getId());
+                    + player.getCell());
 
             Player prankedPlayer = getPlayer();
-            Cell prankDestinationCell = player.getCell();
+            int prankDestinationCell = player.getCell();
 
             prankedPlayer.setCell(prankDestinationCell);
         }
         else
             System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
-                    + ". " + player.getUsername() + " moves from " + player.getCell().getId() + " to 12.");
+                    + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + getId()
+                    + ".");
 
-        player.setCell(this);
+        player.setCell(this.id);
 
-        return 12;
+        return id;
     }
 
     //returns the cell's id

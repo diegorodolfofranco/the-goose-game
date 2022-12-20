@@ -1,6 +1,8 @@
-package org.thegoosegame.game;
+package org.thegoosegame.model;
 
 import lombok.*;
+import org.thegoosegame.controller.PlayerController;
+import org.thegoosegame.repository.PlayerRepository;
 
 import java.util.*;
 
@@ -20,7 +22,7 @@ public class Game {
     private int secondDice;
 
     //constructor
-    Game(Set<Player> players, List<Cell> cells, boolean isEnded, String winner) {
+    public Game(Set<Player> players, List<Cell> cells, boolean isEnded, String winner) {
         this.players = players;
         this.cells = cells;
         this.isEnded = isEnded;
@@ -58,9 +60,12 @@ public class Game {
         if (playerCheck(username))
             return username + ": already existing player.";
         else {
-            Player player = new Player(username, game.getId(), getCells().get(0));
+            Player player = new Player(username, game.getId(), getCells().get(0).getId());
             players.add(player);
             getCells().get(0).setPlayer(player);
+            PlayerRepository playerRepository = new PlayerRepository();
+            PlayerController playerController = new PlayerController(playerRepository);
+            playerController.create(player);
         }
 
         listPlayers(getPlayers());
@@ -94,7 +99,9 @@ public class Game {
     }
 
     //moves the player to a new cell
-    public void movePlayer(Game game, Player player, Cell currentCell){
+    public void movePlayer(Game game, Player player, int currentCellId){
+        Cell currentCell = game.getCells().get(currentCellId);
+
         int newPosition = currentCell.getId() + firstDice + secondDice;
 
         if(newPosition>63)
@@ -103,7 +110,7 @@ public class Game {
         System.out.print(player.getUsername() + " rolls " + firstDice + ", " + secondDice + ". ");
 
         int destinationCellPosition = cells.get(newPosition).land(game, player, firstDice, secondDice);
-        player.setCell(cells.get(destinationCellPosition));
+        player.setCell(cells.get(destinationCellPosition).getId());
 
         if(destinationCellPosition==63){
             System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()

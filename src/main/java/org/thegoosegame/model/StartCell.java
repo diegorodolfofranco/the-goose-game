@@ -1,4 +1,4 @@
-package org.thegoosegame.game;
+package org.thegoosegame.model;
 
 import lombok.*;
 
@@ -22,7 +22,7 @@ public class StartCell implements Cell {
 
     //welcomes a player to the cell
     public int land(Game game, Player player, int firstDice, int secondDice){
-        player.setCell(this);
+        player.setCell(this.id);
         return 0;
     }
 

@@ -1,17 +1,12 @@
-package org.thegoosegame.game;
+package org.thegoosegame.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class PlayerTest {
 
@@ -22,14 +17,14 @@ class PlayerTest {
 
     @BeforeEach
     void setup() {
-        playerTest = new Player("username", "gameId", cell);
+        playerTest = new Player("username", "gameId", cell.getId());
     }
 
     @Test
     void testRollDices() {
-        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", null))),
+        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", 0))),
                 new ArrayList<>(), false, "winner", 1, 1);
-        final Player currentPlayer = new Player("username", "gameId", cell);
+        final Player currentPlayer = new Player("username", "gameId", cell.getId());
 
         game.initializeBoard();
 

@@ -1,4 +1,4 @@
-package org.thegoosegame.game;
+package org.thegoosegame.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,13 +13,13 @@ class GameTest {
 
     @BeforeEach
     void setup() {
-        gameTest = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", null))), new ArrayList<>(),
-                false, "username", 0, 0);
+        gameTest = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", 0))),
+                new ArrayList<>(), false, "username", 0, 0);
     }
 
     @Test
     void testStartGame() {
-        final Player player = new Player("username", "gameId", new StandardCell("gameId", 0));
+        final Player player = new Player("username", "gameId", 0);
         final Game game = new Game(new LinkedHashSet<>(Arrays.asList(player)),
                 new ArrayList<>(), false, "username", 0, 0);
 
@@ -57,7 +57,7 @@ class GameTest {
 
     @Test
     void testListPlayers() {
-        final Set<Player> players = new HashSet<>(Arrays.asList(new Player("username", "gameId", null)));
+        final Set<Player> players = new HashSet<>(Arrays.asList(new Player("username", "gameId", 0)));
 
         final String result = gameTest.listPlayers(players);
 
@@ -66,25 +66,25 @@ class GameTest {
 
     @Test
     void testNewTurn() {
-        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", null))),
+        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", 0))),
                 new ArrayList<>(), false, "username", 0, 0);
-        final Player currentPlayer = new Player("username", "gameId", null);
+        final Player currentPlayer = new Player("username", "gameId", 0);
 
         game.initializeBoard();
-        currentPlayer.setCell(game.getCells().get(0));
+        currentPlayer.setCell(game.getCells().get(0).getId());
 
         game.newTurn(game, currentPlayer, 0, 0);
     }
 
     @Test
     void testMovePlayer() {
-        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", null))),
+        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", 0))),
                 new ArrayList<>(), false, "username", 0, 0);
-        final Player player = new Player("username", "gameId", null);
+        final Player player = new Player("username", "gameId", 0);
 
         game.initializeBoard();
-        player.setCell(game.getCells().get(0));
-        final Cell currentCell = player.getCell();
+        player.setCell(game.getCells().get(0).getId());
+        final int currentCell = player.getCell();
 
         game.movePlayer(game, player, currentCell);
     }

@@ -1,4 +1,4 @@
-package org.thegoosegame.game;
+package org.thegoosegame.model;
 
 import lombok.*;
 
@@ -10,10 +10,10 @@ import lombok.*;
 public class Player {
     private String username;
     private String gameId;
-    private Cell cell;
+    private int cell;
 
     //constructor
-    public Player(String username, String gameId, Cell cell){
+    public Player(String username, String gameId, int cell){
         this.username = username;
         this.gameId = gameId;
         this.cell = cell;
