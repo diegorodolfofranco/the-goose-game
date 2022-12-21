@@ -9,13 +9,11 @@ import org.thegoosegame.model.player.Player;
 @EqualsAndHashCode
 @ToString
 public class BridgeCell implements Cell {
-    private String gameId;
     private Player player;
     private int id;
 
     //constructor
-    public BridgeCell(String gameId, int id) {
-        this.gameId = gameId;
+    public BridgeCell(int id) {
         this.id = id;
     }
 

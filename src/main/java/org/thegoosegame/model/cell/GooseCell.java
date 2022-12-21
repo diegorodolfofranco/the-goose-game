@@ -9,13 +9,11 @@ import org.thegoosegame.model.player.Player;
 @EqualsAndHashCode
 @ToString
 public class GooseCell implements Cell {
-    private String gameId;
     private Player player;
     private int id;
 
     //constructor
-    public GooseCell(String gameId, int id) {
-        this.gameId = gameId;
+    public GooseCell(int id) {
         this.id = id;
     }
 

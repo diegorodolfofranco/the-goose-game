@@ -18,18 +18,18 @@ class BridgeCellTest {
 
     @BeforeEach
     void setup() {
-        bridgeCellTest = new BridgeCell("gameId", 0);
+        bridgeCellTest = new BridgeCell(6);
     }
 
     @Test
     void testLand() {
-        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", 0))),
+        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", 0))),
                 new ArrayList<>(), false, "winner", 0, 0);
-        bridgeCellTest = new BridgeCell("gameId", 6);
+        bridgeCellTest = new BridgeCell(6);
 
         game.initializeBoard();
 
-        final Player player = new Player("username", "gameId", game.getCells().get(0).getId());
+        final Player player = new Player("username", game.getCells().get(0).getId());
 
         final int result = bridgeCellTest.land(game, player, 2, 4);
 

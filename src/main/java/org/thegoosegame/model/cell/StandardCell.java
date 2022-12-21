@@ -10,13 +10,11 @@ import org.thegoosegame.model.player.Player;
 @EqualsAndHashCode
 @ToString
 public class StandardCell implements Cell {
-    private String gameId;
     private Player player;
     private int id;
 
     //constructor
-    public StandardCell(String gameId, int id) {
-        this.gameId = gameId;
+    public StandardCell(int id) {
         this.id = id;
     }
 

@@ -10,13 +10,11 @@ import org.thegoosegame.model.game.Game;
 @ToString
 public class Player {
     private String username;
-    private String gameId;
     private int cell;
 
     //constructor
-    public Player(String username, String gameId, int cell){
+    public Player(String username, int cell){
         this.username = username;
-        this.gameId = gameId;
         this.cell = cell;
     }
 

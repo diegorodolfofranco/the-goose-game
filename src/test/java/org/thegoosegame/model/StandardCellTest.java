@@ -18,18 +18,18 @@ class StandardCellTest {
 
     @BeforeEach
     void setup() {
-        standardCellTest = new StandardCell("gameId", 0);
+        standardCellTest = new StandardCell(1);
     }
 
     @Test
     void testLand() {
-        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", 0))),
+        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", 0))),
                 new ArrayList<>(), false, "winner", 0, 0);
-        standardCellTest = new StandardCell("gameId", 7);
+        standardCellTest = new StandardCell(7);
 
         game.initializeBoard();
 
-        final Player player = new Player("username", "gameId", game.getCells().get(0).getId());
+        final Player player = new Player("username", game.getCells().get(0).getId());
 
         final int result = standardCellTest.land(game, player, 2, 5);
 

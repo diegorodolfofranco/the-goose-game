@@ -15,20 +15,20 @@ import java.util.LinkedHashSet;
 class PlayerTest {
 
     @Mock
-    private Cell cell = new StandardCell("gameId", 0);
+    private Cell cell = new StandardCell(0);
 
     private Player playerTest;
 
     @BeforeEach
     void setup() {
-        playerTest = new Player("username", "gameId", cell.getId());
+        playerTest = new Player("username", cell.getId());
     }
 
     @Test
     void testRollDices() {
-        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", 0))),
+        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", 0))),
                 new ArrayList<>(), false, "winner", 1, 1);
-        final Player currentPlayer = new Player("username", "gameId", cell.getId());
+        final Player currentPlayer = new Player("username", cell.getId());
 
         game.initializeBoard();
 

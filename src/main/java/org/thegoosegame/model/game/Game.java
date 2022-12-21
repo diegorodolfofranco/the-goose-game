@@ -13,7 +13,6 @@ import java.util.*;
 @EqualsAndHashCode
 @ToString
 public class Game {
-    private final String id = UUID.randomUUID().toString();
     private Set<Player> players = new LinkedHashSet<>();
     private List<Cell> cells = new ArrayList<>();
     private boolean isEnded;
@@ -33,21 +32,21 @@ public class Game {
 
     //initializes the cells on the game board
     public void initializeBoard() {
-        cells.add(new StartCell(getId(), 0));
+        cells.add(new StartCell(0));
 
         int i=1;
         do {
-                cells.add(new StandardCell(getId(), i));
+                cells.add(new StandardCell(i));
             i++;
         } while (i < 64);
 
-        cells.set(5, new GooseCell(getId(),5));
-        cells.set(6, new BridgeCell(getId(),6));
-        cells.set(9, new GooseCell(getId(),9));
-        cells.set(13, new GooseCell(getId(), 13));
-        cells.set(18, new GooseCell(getId(), 18));
-        cells.set(23, new GooseCell(getId(), 23));
-        cells.set(27, new GooseCell(getId(), 27));
+        cells.set(5, new GooseCell(5));
+        cells.set(6, new BridgeCell(6));
+        cells.set(9, new GooseCell(9));
+        cells.set(13, new GooseCell(13));
+        cells.set(18, new GooseCell(18));
+        cells.set(23, new GooseCell(23));
+        cells.set(27, new GooseCell(27));
     }
 
     //creates a new players after checking if the player doesn't already exist
@@ -55,7 +54,7 @@ public class Game {
         if (playerCheck(username))
             return username + ": already existing player.";
         else {
-            Player player = new Player(username, game.getId(), getCells().get(0).getId());
+            Player player = new Player(username, getCells().get(0).getId());
             players.add(player);
             getCells().get(0).setPlayer(player);
         }
