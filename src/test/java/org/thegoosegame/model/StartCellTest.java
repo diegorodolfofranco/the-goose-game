@@ -2,9 +2,14 @@ package org.thegoosegame.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.thegoosegame.model.cell.BridgeCell;
 import org.thegoosegame.model.cell.StartCell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
+import org.thegoosegame.service.GameService;
+import org.thegoosegame.service.cell.BridgeCellService;
+import org.thegoosegame.service.cell.StartCellService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,8 +18,12 @@ import java.util.LinkedHashSet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StartCellTest {
-
-    private StartCell startCellTest;
+    @Autowired
+    GameService gameService;
+    @Autowired
+    StartCellService startCellService;
+    @Autowired
+    StartCell startCellTest;
 
     @BeforeEach
     void setup() {
@@ -27,11 +36,11 @@ class StartCellTest {
                 new ArrayList<>(), false, "winner", 0, 0);
         startCellTest = new StartCell(0);
 
-        game.initializeBoard();
+        gameService.initializeBoard();
 
         final Player player = new Player("username", game.getCells().get(0).getId());
 
-        final int result = startCellTest.land(game, player, 0, 0);
+        final int result = startCellService.land(game, player, 0, 0);
 
         assertThat(result).isEqualTo(0);
     }

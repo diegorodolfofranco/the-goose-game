@@ -2,17 +2,21 @@ package org.thegoosegame.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.thegoosegame.model.cell.Cell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
+import org.thegoosegame.service.GameService;
 
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class GameTest {
-
-    private Game gameTest = new Game();
+    @Autowired
+    GameService gameService;
+    @Autowired
+    Game gameTest;
 
     @BeforeEach
     void setup() {
@@ -22,7 +26,7 @@ class GameTest {
 
     @Test
     void testInitializeBoard() {
-        gameTest.initializeBoard();
+        gameService.initializeBoard();
         List<Cell> cells = gameTest.getCells();
 
         Cell result = cells.get(0);
@@ -35,23 +39,23 @@ class GameTest {
     void testCreatePlayer() {
         final Game game = new Game(new LinkedHashSet<>(Arrays.asList()),
                 new ArrayList<>(), false, "winner", 0, 0);
-        game.initializeBoard();
+        gameService.initializeBoard();
 
-        final String result = game.createPlayer("username2", game);
+        final String result = gameService.createPlayer("username2", game);
 
         assertThat(result).isEqualTo("Player added successfully");
     }
 
     @Test
     void testPlayerCheck() {
-        assertThat(gameTest.playerCheck("username")).isTrue();
+        assertThat(gameService.playerCheck("username")).isTrue();
     }
 
     @Test
     void testListPlayers() {
         final Set<Player> players = new HashSet<>(Arrays.asList(new Player("username", 0)));
 
-        final String result = gameTest.listPlayers(players);
+        final String result = gameService.listPlayers(players);
 
         assertThat(result).isEqualTo("Players:  username");
     }
@@ -62,13 +66,13 @@ class GameTest {
                 new ArrayList<>(), false, "username", 0, 0);
         final Player currentPlayer = new Player("username", 0);
 
-        game.initializeBoard();
+        gameService.initializeBoard();
         currentPlayer.setCell(game.getCells().get(0).getId());
 
         game.setFirstDice((int) (Math.random() * 6) + 1);
         game.setSecondDice((int) (Math.random() * 6) + 1);
 
-        game.newTurn(game, currentPlayer);
+        gameService.newTurn(game, currentPlayer);
     }
 
     @Test
@@ -77,13 +81,13 @@ class GameTest {
                 new ArrayList<>(), false, "username", 0, 0);
         final Player currentPlayer = new Player("username", 0);
 
-        game.initializeBoard();
+        gameService.initializeBoard();
         currentPlayer.setCell(game.getCells().get(0).getId());
 
         int firstDice = 5;
         int secondDice = 3;
 
-        game.newTurn(game, currentPlayer, firstDice, secondDice);
+        gameService.newTurn(game, currentPlayer, firstDice, secondDice);
     }
 
     @Test
@@ -92,18 +96,18 @@ class GameTest {
                 new ArrayList<>(), false, "username", 0, 0);
         final Player player = new Player("username", 0);
 
-        game.initializeBoard();
+        gameService.initializeBoard();
         player.setCell(game.getCells().get(0).getId());
         final int currentCell = player.getCell();
 
         game.setFirstDice(2);
         game.setSecondDice(1);
 
-        game.movePlayer(game, player, currentCell);
+        gameService.movePlayer(game, player, currentCell);
     }
 
     @Test
     void testBounce() {
-        assertThat(gameTest.bounce(70)).isEqualTo(56);
+        assertThat(gameService.bounce(70)).isEqualTo(56);
     }
 }

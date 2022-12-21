@@ -3,21 +3,27 @@ package org.thegoosegame.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.thegoosegame.model.cell.Cell;
 import org.thegoosegame.model.cell.StandardCell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
+import org.thegoosegame.service.GameService;
+import org.thegoosegame.service.PlayerService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 
 class PlayerTest {
-
-    @Mock
-    private Cell cell = new StandardCell(0);
-
-    private Player playerTest;
+    @Autowired
+    PlayerService playerService;
+    @Autowired
+    GameService gameService;
+    @Autowired
+    Player playerTest;
+    @Autowired
+    Cell cell;
 
     @BeforeEach
     void setup() {
@@ -30,8 +36,8 @@ class PlayerTest {
                 new ArrayList<>(), false, "winner", 1, 1);
         final Player currentPlayer = new Player("username", cell.getId());
 
-        game.initializeBoard();
+        gameService.initializeBoard();
 
-        playerTest.rollDices(game, currentPlayer);
+        playerService.rollDices(game, currentPlayer);
     }
 }

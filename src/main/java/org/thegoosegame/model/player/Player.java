@@ -1,6 +1,7 @@
 package org.thegoosegame.model.player;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 import org.thegoosegame.model.game.Game;
 
 @Getter
@@ -8,6 +9,7 @@ import org.thegoosegame.model.game.Game;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Component
 public class Player {
     private String username;
     private int cell;
@@ -16,10 +18,5 @@ public class Player {
     public Player(String username, int cell){
         this.username = username;
         this.cell = cell;
-    }
-
-    //implements the dice roll
-    public void rollDices(Game game, Player currentPlayer) {
-        game.movePlayer(game, currentPlayer, cell);
     }
 }
