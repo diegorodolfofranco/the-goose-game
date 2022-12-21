@@ -1,7 +1,9 @@
-package org.thegoosegame.model;
+package org.thegoosegame.model.game;
 
 import lombok.*;
 import org.thegoosegame.controller.PlayerController;
+import org.thegoosegame.model.player.Player;
+import org.thegoosegame.model.cell.*;
 import org.thegoosegame.repository.PlayerRepository;
 
 import java.util.*;
@@ -29,11 +31,6 @@ public class Game {
         this.winner = winner;
         this.firstDice = 0;
         this.secondDice = 0;
-    }
-
-    //starts the game
-    public void startGame(Game game, Player player){
-        newTurn(game, player, firstDice, secondDice);
     }
 
     //initializes the cells on the game board
@@ -91,6 +88,12 @@ public class Game {
         }
 
         return message.toString();
+    }
+
+    public void newTurn(Game game, Player currentPlayer){
+        firstDice = (int) (Math.random() * 6) + 1;
+        secondDice = (int) (Math.random() * 6) + 1;
+        currentPlayer.rollDices(game, currentPlayer, firstDice, secondDice);
     }
 
     //starts a new turn

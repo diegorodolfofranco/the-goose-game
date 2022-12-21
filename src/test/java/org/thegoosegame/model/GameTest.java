@@ -2,6 +2,9 @@ package org.thegoosegame.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.thegoosegame.model.cell.Cell;
+import org.thegoosegame.model.game.Game;
+import org.thegoosegame.model.player.Player;
 
 import java.util.*;
 

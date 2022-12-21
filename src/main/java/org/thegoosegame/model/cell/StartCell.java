@@ -1,6 +1,8 @@
-package org.thegoosegame.model;
+package org.thegoosegame.model.cell;
 
 import lombok.*;
+import org.thegoosegame.model.game.Game;
+import org.thegoosegame.model.player.Player;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

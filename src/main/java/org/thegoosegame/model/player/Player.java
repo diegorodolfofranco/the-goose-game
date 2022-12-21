@@ -1,6 +1,7 @@
-package org.thegoosegame.model;
+package org.thegoosegame.model.player;
 
 import lombok.*;
+import org.thegoosegame.model.game.Game;
 
 @Getter
 @Setter

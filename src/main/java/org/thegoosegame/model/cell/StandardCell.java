@@ -1,18 +1,21 @@
-package org.thegoosegame.model;
+package org.thegoosegame.model.cell;
 
 import lombok.*;
+import org.thegoosegame.model.game.Game;
+import org.thegoosegame.model.player.Player;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class BridgeCell implements Cell {
+public class StandardCell implements Cell {
     private String gameId;
     private Player player;
     private int id;
 
     //constructor
-    public BridgeCell(String gameId, int id) {
+    public StandardCell(String gameId, int id) {
         this.gameId = gameId;
         this.id = id;
     }
@@ -32,11 +35,12 @@ public class BridgeCell implements Cell {
         }
         else
             System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
-                    + ". " + player.getUsername() + " moves from " + player.getCell() + " to 12.");
+                    + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + getId()
+                    + ".");
 
         player.setCell(this.id);
 
-        return 12;
+        return id;
     }
 
     //returns the cell's id
