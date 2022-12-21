@@ -1,10 +1,8 @@
 package org.thegoosegame.model.game;
 
 import lombok.*;
-import org.thegoosegame.controller.PlayerController;
 import org.thegoosegame.model.player.Player;
 import org.thegoosegame.model.cell.*;
-import org.thegoosegame.repository.PlayerRepository;
 
 import java.util.*;
 
@@ -60,9 +58,6 @@ public class Game {
             Player player = new Player(username, game.getId(), getCells().get(0).getId());
             players.add(player);
             getCells().get(0).setPlayer(player);
-            PlayerRepository playerRepository = new PlayerRepository();
-            PlayerController playerController = new PlayerController(playerRepository);
-            playerController.create(player);
         }
 
         listPlayers(getPlayers());
@@ -93,12 +88,16 @@ public class Game {
     public void newTurn(Game game, Player currentPlayer){
         firstDice = (int) (Math.random() * 6) + 1;
         secondDice = (int) (Math.random() * 6) + 1;
-        currentPlayer.rollDices(game, currentPlayer, firstDice, secondDice);
+        game.setFirstDice(firstDice);
+        game.setSecondDice(secondDice);
+        currentPlayer.rollDices(game, currentPlayer);
     }
 
     //starts a new turn
     public void newTurn(Game game, Player currentPlayer, int firstDice, int secondDice) {
-        currentPlayer.rollDices(game, currentPlayer, firstDice, secondDice);
+        game.setFirstDice(firstDice);
+        game.setSecondDice(secondDice);
+        currentPlayer.rollDices(game, currentPlayer);
     }
 
     //moves the player to a new cell

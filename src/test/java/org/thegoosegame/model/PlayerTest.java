@@ -32,6 +32,6 @@ class PlayerTest {
 
         game.initializeBoard();
 
-        playerTest.rollDices(game, currentPlayer, 1, 1);
+        playerTest.rollDices(game, currentPlayer);
     }
 }

@@ -21,17 +21,6 @@ class GameTest {
     }
 
     @Test
-    void testStartGame() {
-        final Player player = new Player("username", "gameId", 0);
-        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(player)),
-                new ArrayList<>(), false, "username", 0, 0);
-
-        game.initializeBoard();
-
-        game.startGame(game, player);
-    }
-
-    @Test
     void testInitializeBoard() {
         gameTest.initializeBoard();
         List<Cell> cells = gameTest.getCells();
@@ -68,7 +57,7 @@ class GameTest {
     }
 
     @Test
-    void testNewTurn() {
+    void testNewTurnDicesToBeRolled() {
         final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", 0))),
                 new ArrayList<>(), false, "username", 0, 0);
         final Player currentPlayer = new Player("username", "gameId", 0);
@@ -76,7 +65,25 @@ class GameTest {
         game.initializeBoard();
         currentPlayer.setCell(game.getCells().get(0).getId());
 
-        game.newTurn(game, currentPlayer, 0, 0);
+        game.setFirstDice((int) (Math.random() * 6) + 1);
+        game.setSecondDice((int) (Math.random() * 6) + 1);
+
+        game.newTurn(game, currentPlayer);
+    }
+
+    @Test
+    void testNewTurnDicesAlreadyRolled() {
+        final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", "gameId", 0))),
+                new ArrayList<>(), false, "username", 0, 0);
+        final Player currentPlayer = new Player("username", "gameId", 0);
+
+        game.initializeBoard();
+        currentPlayer.setCell(game.getCells().get(0).getId());
+
+        int firstDice = 5;
+        int secondDice = 3;
+
+        game.newTurn(game, currentPlayer, firstDice, secondDice);
     }
 
     @Test

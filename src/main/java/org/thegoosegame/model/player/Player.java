@@ -21,7 +21,7 @@ public class Player {
     }
 
     //implements the dice roll
-    public void rollDices(Game game, Player currentPlayer, int firstDice, int secondDice) {
+    public void rollDices(Game game, Player currentPlayer) {
         game.movePlayer(game, currentPlayer, cell);
     }
 }
