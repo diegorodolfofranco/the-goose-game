@@ -1,7 +1,6 @@
 package org.thegoosegame.model.cell;
 
 import lombok.*;
-import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 
 @Getter
@@ -22,13 +21,12 @@ public class GooseCell implements Cell {
         int destination = id + firstDice + secondDice;
 
         if(destination!=5 && destination!=9 && destination!= 13 && destination!= 18 && destination!=23 && destination!=27){
-            moveResponse.concat(player.getUsername() + " moves from " + player.getCell() + " to " + id
+            moveResponse = moveResponse.concat(player.getUsername() + " moves from " + player.getCell() + " to " + id
                     + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination + ".");
         }
         else {
-            moveResponse.concat(player.getUsername() + " moves from " + player.getCell() + " to " + id
+            moveResponse = moveResponse.concat(player.getUsername() + " moves from " + player.getCell() + " to " + id
                     + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination + ", The Goose. ");
-            int newDestination = destination + firstDice + secondDice;
             land(player, firstDice, secondDice, moveResponse);
         }
 

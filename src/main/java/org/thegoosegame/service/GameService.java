@@ -125,10 +125,6 @@ public class GameService {
         return newPosition;
     }
 
-    public Set<Player> findAll() {
-        return game.getPlayers();
-    }
-
     public Player findPlayerByUsername(String username) throws PlayerNotFoundException {
         return game.getPlayers().stream().filter(stream -> stream.getUsername().equals(username)).findFirst().orElseThrow(PlayerNotFoundException::new);
     }

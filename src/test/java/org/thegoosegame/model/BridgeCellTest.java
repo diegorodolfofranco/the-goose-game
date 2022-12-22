@@ -6,10 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.thegoosegame.model.cell.BridgeCell;
-import org.thegoosegame.model.cell.Cell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 

@@ -2,12 +2,10 @@ package org.thegoosegame.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.thegoosegame.exception.PlayerNotFoundException;
 import org.thegoosegame.model.cell.Cell;
 import org.thegoosegame.model.game.Game;

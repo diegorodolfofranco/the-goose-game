@@ -1,7 +1,6 @@
 package org.thegoosegame.model.cell;
 
 import lombok.*;
-import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 
 @Getter
@@ -20,19 +19,19 @@ public class StandardCell implements Cell {
 
     //welcomes a player to the cell
     public String land(Player player, int firstDice, int secondDice, String moveResponse){
-        if(player!=null){
-            moveResponse.concat(player.getUsername() + " rolls " + firstDice + ", " + secondDice
+        if(this.player!=null){
+            moveResponse = moveResponse.concat(player.getUsername() + " rolls " + firstDice + ", " + secondDice
                     + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + id
-                    + ". On " + id + " there is " + player.getUsername() + ", who moves to "
+                    + ". On " + id + " there is " + this.player.getUsername() + ", who moves to "
                     + player.getCell());
 
-            Player prankedPlayer = player;
+            Player prankedPlayer = this.player;
             int prankDestinationCell = player.getCell();
 
             prankedPlayer.setCell(prankDestinationCell);
         }
         else
-            moveResponse.concat(player.getUsername() + " rolls " + firstDice + ", " + secondDice
+            moveResponse = moveResponse.concat(player.getUsername() + " rolls " + firstDice + ", " + secondDice
                     + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + id
                     + ".");
 
