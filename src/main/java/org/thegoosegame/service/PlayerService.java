@@ -15,18 +15,10 @@ public class PlayerService {
     private Game game;
     @Autowired
     private Player player;
-    @Autowired
-    private GameService gameService;
 
     @Autowired
     PlayerService(Game game, Player player, GameService gameService){
         this.game = game;
         this.player = player;
-        this.gameService = gameService;
-    }
-
-    //implements the dice roll
-    public void rollDices(Game game, Player player) {
-        gameService.movePlayer(game, player, player.getCell());
     }
 }

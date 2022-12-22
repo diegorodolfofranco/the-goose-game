@@ -41,7 +41,7 @@ class GameTest {
                 new ArrayList<>(), false, "winner", 0, 0);
         gameService.initializeBoard();
 
-        final String result = gameService.createPlayer("username2", game);
+        final String result = gameService.createPlayer("username2");
 
         assertThat(result).isEqualTo("Player added successfully");
     }
@@ -72,7 +72,7 @@ class GameTest {
         game.setFirstDice((int) (Math.random() * 6) + 1);
         game.setSecondDice((int) (Math.random() * 6) + 1);
 
-        gameService.newTurn(game, currentPlayer);
+        gameService.newTurn(currentPlayer);
     }
 
     @Test
@@ -87,7 +87,7 @@ class GameTest {
         int firstDice = 5;
         int secondDice = 3;
 
-        gameService.newTurn(game, currentPlayer, firstDice, secondDice);
+        gameService.newTurn(currentPlayer, firstDice, secondDice);
     }
 
     @Test

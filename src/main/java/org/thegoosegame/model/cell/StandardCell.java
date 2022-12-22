@@ -18,6 +18,29 @@ public class StandardCell implements Cell {
         this.id = id;
     }
 
+    //welcomes a player to the cell
+    public int land(Player player, int firstDice, int secondDice){
+        if(player!=null){
+            System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
+                    + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + id
+                    + ". On " + id + " there is " + player.getUsername() + ", who moves to "
+                    + player.getCell());
+
+            Player prankedPlayer = player;
+            int prankDestinationCell = player.getCell();
+
+            prankedPlayer.setCell(prankDestinationCell);
+        }
+        else
+            System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
+                    + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + id
+                    + ".");
+
+        player.setCell(id);
+
+        return id;
+    }
+
     //returns the cell's id
     public int getId() {
         return id;

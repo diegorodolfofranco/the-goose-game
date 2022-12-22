@@ -15,20 +15,11 @@ public class GameService {
     @Autowired
     private Game game;
     @Autowired
-    private Player player;
-    @Autowired
-    private Cell cell;
-    @Autowired
-    private PlayerService playerService;
-    @Autowired
     CellService cellService;
 
     @Autowired
-    GameService(Game game, Player player, Cell cell, PlayerService playerService, CellService cellService){
+    GameService(Game game, CellService cellService){
         this.game = game;
-        this.player = player;
-        this.cell = cell;
-        this.playerService = playerService;
         this.cellService = cellService;
     }
 
@@ -51,7 +42,7 @@ public class GameService {
     }
 
     //creates a new players after checking if the player doesn't already exist
-    public String createPlayer(String username, Game game) {
+    public String createPlayer(String username) {
         if (playerCheck(username))
             return username + ": already existing player.";
         else {
@@ -60,8 +51,7 @@ public class GameService {
             game.getCells().get(0).setPlayer(player);
         }
 
-        listPlayers(game.getPlayers());
-        return "Player added successfully";
+        return game.getPlayers().toString();
     }
 
     //checks if a player already exist
@@ -85,40 +75,43 @@ public class GameService {
         return message.toString();
     }
 
-    public void newTurn(Game game, Player player){
+    public String newTurn(Player player){
         game.setFirstDice((int) (Math.random() * 6) + 1);
         game.setSecondDice((int) (Math.random() * 6) + 1);
-        playerService.rollDices(game, player);
+        return movePlayer(game, player, player.getCell());
     }
 
     //starts a new turn
-    public void newTurn(Game game, Player player, int firstDice, int secondDice) {
+    public String newTurn(Player player, int firstDice, int secondDice) {
         game.setFirstDice(firstDice);
         game.setSecondDice(secondDice);
-        playerService.rollDices(game, player);
+        return movePlayer(game, player,player.getCell());
     }
 
     //moves the player to a new cell
-    public void movePlayer(Game game, Player player, int currentCellId){
+    public String movePlayer(Game game, Player player, int currentCellId){
         Cell currentCell = game.getCells().get(currentCellId);
-
         int newPosition = currentCell.getId() + game.getFirstDice() + game.getSecondDice();
+        String moveResponse;
 
         if(newPosition>63)
             newPosition = bounce(newPosition);
 
-        System.out.print(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice() + ". ");
+        moveResponse = player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice() + ". ";
 
-        int destinationCellPosition = cellService.land(game, player, game.getFirstDice(), game.getSecondDice());
+        Cell landingCell = game.getCells().get(newPosition);
+        int destinationCellPosition = cellService.landOnCell(game, landingCell);
         player.setCell(game.getCells().get(destinationCellPosition).getId());
 
         if(destinationCellPosition==63){
-            System.out.println(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+            moveResponse = moveResponse.concat(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
                     + ". " + player.getUsername() + " moves from " + currentCell.getId() + " to "
                     + destinationCellPosition + ". " + player.getUsername() + " Wins!!");
             game.setWinner(player.getUsername());
             game.setEnded(true);
         }
+
+        return moveResponse;
     }
 
     //bounces the player if he doesn't roll the exact number of cells needed to reach the winning one

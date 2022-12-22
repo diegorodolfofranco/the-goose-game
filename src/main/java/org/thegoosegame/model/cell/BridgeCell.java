@@ -17,6 +17,15 @@ public class BridgeCell implements Cell {
         this.id = id;
     }
 
+    //welcomes a player to the cell
+    public int land(Player player, int firstDice, int secondDice){
+        System.out.println(player.getUsername() + " moves from " + player.getCell() + " to 12.");
+
+        player.setCell(id);
+
+        return 12;
+    }
+
     //returns the cell's id
     public int getId() {
         return id;

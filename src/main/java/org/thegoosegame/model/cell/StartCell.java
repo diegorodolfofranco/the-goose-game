@@ -20,6 +20,12 @@ public class StartCell implements Cell {
         this.id = id;
     }
 
+    //welcomes a player to the cell
+    public int land(Player player, int firstDice, int secondDice){
+        player.setCell(id);
+        return 0;
+    }
+
     //returns the cell's id
     public int getId() {
         return id;
