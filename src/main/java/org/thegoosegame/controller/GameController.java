@@ -31,7 +31,8 @@ public class GameController {
 
     @PutMapping
     public Game createGame(){
-        gameService.initializeBoard(game);
+        if(game.getCells().size()!=64)
+            gameService.initializeBoard(game);
         return game;
     }
 
