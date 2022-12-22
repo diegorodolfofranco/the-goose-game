@@ -21,9 +21,11 @@ public class StartCell implements Cell {
     }
 
     //welcomes a player to the cell
-    public int land(Player player, int firstDice, int secondDice){
-        player.setCell(id);
-        return 0;
+    public String land(Player player, int firstDice, int secondDice, String moveResponse){
+        player.setCell(0);
+        players.add(player);
+
+        return moveResponse;
     }
 
     //returns the cell's id

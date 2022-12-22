@@ -8,7 +8,7 @@ import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 
 public interface Cell {
-    int land(Player player, int firstDice, int secondDice);
+    String land(Player player, int firstDice, int secondDice, String moveResponse);
 
     int getId();
 

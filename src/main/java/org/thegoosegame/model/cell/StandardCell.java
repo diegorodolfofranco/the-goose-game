@@ -19,9 +19,9 @@ public class StandardCell implements Cell {
     }
 
     //welcomes a player to the cell
-    public int land(Player player, int firstDice, int secondDice){
+    public String land(Player player, int firstDice, int secondDice, String moveResponse){
         if(player!=null){
-            System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
+            moveResponse.concat(player.getUsername() + " rolls " + firstDice + ", " + secondDice
                     + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + id
                     + ". On " + id + " there is " + player.getUsername() + ", who moves to "
                     + player.getCell());
@@ -32,13 +32,14 @@ public class StandardCell implements Cell {
             prankedPlayer.setCell(prankDestinationCell);
         }
         else
-            System.out.println(player.getUsername() + " rolls " + firstDice + ", " + secondDice
+            moveResponse.concat(player.getUsername() + " rolls " + firstDice + ", " + secondDice
                     + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + id
                     + ".");
 
         player.setCell(id);
+        this.player = player;
 
-        return id;
+        return moveResponse;
     }
 
     //returns the cell's id

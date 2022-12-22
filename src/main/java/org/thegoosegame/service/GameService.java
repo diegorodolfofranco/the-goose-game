@@ -1,5 +1,6 @@
 package org.thegoosegame.service;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thegoosegame.exception.PlayerNotFoundException;
@@ -11,6 +12,7 @@ import org.thegoosegame.service.cell.CellService;
 import java.util.Set;
 
 @Service
+@NoArgsConstructor
 public class GameService {
     @Autowired
     private Game game;
@@ -18,13 +20,14 @@ public class GameService {
     CellService cellService;
 
     @Autowired
-    GameService(Game game, CellService cellService){
+    public GameService(Game game, CellService cellService){
         this.game = game;
         this.cellService = cellService;
+        initializeBoard(game);
     }
 
     //initializes the cells on the game board
-    public void initializeBoard() {
+    public void initializeBoard(Game game) {
         game.getCells().add(new StartCell(0));
 
         int i=1;
@@ -97,11 +100,13 @@ public class GameService {
         if(newPosition>63)
             newPosition = bounce(newPosition);
 
-        moveResponse = player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice() + ". ";
+        moveResponse = player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice() + ". "
+                        + player.getUsername() + " moves from " + player.getCell() + " to " + newPosition + ".";
 
         Cell landingCell = game.getCells().get(newPosition);
-        int destinationCellPosition = cellService.landOnCell(game, landingCell);
-        player.setCell(game.getCells().get(destinationCellPosition).getId());
+        cellService.landOnCell(game, landingCell, moveResponse);
+        int destinationCellPosition = player.getCell();
+        //player.setCell(game.getCells().get(destinationCellPosition).getId());
 
         if(destinationCellPosition==63){
             moveResponse = moveResponse.concat(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()

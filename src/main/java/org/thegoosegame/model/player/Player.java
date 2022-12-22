@@ -2,7 +2,6 @@ package org.thegoosegame.model.player;
 
 import lombok.*;
 import org.springframework.stereotype.Component;
-import org.thegoosegame.model.game.Game;
 
 @Getter
 @Setter

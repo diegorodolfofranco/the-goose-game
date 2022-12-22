@@ -2,9 +2,14 @@ package org.thegoosegame.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.thegoosegame.model.cell.BridgeCell;
+import org.thegoosegame.model.cell.Cell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 
@@ -14,13 +19,20 @@ import java.util.LinkedHashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.thegoosegame.service.*;
+import org.thegoosegame.service.cell.CellService;
+import org.thegoosegame.service.cell.DefaultCellService;
 
-@Component
+@RunWith(MockitoJUnitRunner.class)
 class BridgeCellTest {
-
-    @Autowired
-    GameService gameService;
-    @Autowired
+    @Mock
+    Game game = new Game();
+    @Mock
+    Player player = new Player();
+    @InjectMocks
+    CellService cellService = new DefaultCellService(player);
+    @InjectMocks
+    GameService gameService = new GameService(game, cellService);
+    @Mock
     BridgeCell bridgeCellTest;
 
     @BeforeEach
@@ -34,11 +46,13 @@ class BridgeCellTest {
                 new ArrayList<>(), false, "winner", 0, 0);
         bridgeCellTest = new BridgeCell(6);
 
-        gameService.initializeBoard();
+        gameService.initializeBoard(game);
 
-        final Player player = new Player("username", game.getCells().get(0).getId());
+        player = new Player("username", game.getCells().get(0).getId());
 
-        final int result = bridgeCellTest.land(player, 2, 4);
+        String moveResponse = "";
+        bridgeCellTest.land(player, 3, 3, moveResponse);
+        final int result = player.getCell();
 
         assertThat(result).isEqualTo(12);
     }

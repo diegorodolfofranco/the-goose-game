@@ -12,5 +12,5 @@ import org.thegoosegame.model.player.Player;
 public interface CellService {
     //public int land(Game game, Player player, int firstDice, int secondDice);
 
-    public int landOnCell(Game game, Cell cell);
+    public String landOnCell(Game game, Cell cell, String moveResponse);
 }

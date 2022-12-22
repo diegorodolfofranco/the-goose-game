@@ -18,12 +18,13 @@ public class BridgeCell implements Cell {
     }
 
     //welcomes a player to the cell
-    public int land(Player player, int firstDice, int secondDice){
-        System.out.println(player.getUsername() + " moves from " + player.getCell() + " to 12.");
+    public String land(Player player, int firstDice, int secondDice, String moveResponse){
+        moveResponse.concat(player.getUsername() + " moves from " + player.getCell() + " to 12.");
 
-        player.setCell(id);
+        player.setCell(12);
+        this.player = player;
 
-        return 12;
+        return moveResponse;
     }
 
     //returns the cell's id

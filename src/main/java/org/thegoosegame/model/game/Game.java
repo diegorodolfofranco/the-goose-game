@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 import org.thegoosegame.model.player.Player;
 import org.thegoosegame.model.cell.*;
+import org.thegoosegame.service.GameService;
 
 import java.util.*;
 
@@ -16,7 +17,7 @@ import java.util.*;
 @Component
 public class Game {
     private Set<Player> players = new LinkedHashSet<>();
-    private List<Cell> cells = new ArrayList<>();
+    private List<Cell> cells = new ArrayList<>(64);
     private boolean isEnded;
     private String winner;
     private int firstDice;

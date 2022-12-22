@@ -35,7 +35,7 @@ public class GameController {
 
     @PutMapping
     public Game createGame(){
-        gameService.initializeBoard();
+        gameService.initializeBoard(game);
         return game;
     }
 
@@ -57,8 +57,8 @@ public class GameController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/move/{username}")
-    public String movePlayer(@RequestBody String username) throws PlayerNotFoundException {
-        return gameService.newTurn(gameService.findPlayerByUsername(username));
+    @PutMapping("/move")
+    public ResponseEntity<String> movePlayer(@RequestBody String username) throws PlayerNotFoundException {
+        return ResponseEntity.ok(gameService.newTurn(gameService.findPlayerByUsername(username)));
     }
 }
