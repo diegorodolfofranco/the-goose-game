@@ -9,7 +9,7 @@ import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 import org.thegoosegame.service.GameService;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 
 @RestController
 @RequestMapping("/game")
@@ -19,10 +19,10 @@ public class GameController {
     @Autowired
     Game game;
 
-    @PostConstruct
+    /*@PostConstruct
     void setUp() {
         System.out.println("Controller ready");
-    }
+    }*/
 
     @GetMapping
     public Game showGame(){
@@ -47,6 +47,7 @@ public class GameController {
         return gameService.createPlayer(username);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/move/{username}/{firstDice}/{secondDice}")
     public ResponseEntity<String> movePlayerWithDices(@PathVariable String username, @PathVariable int firstDice, @PathVariable int secondDice) throws PlayerNotFoundException {
         return ResponseEntity.ok(gameService.newTurn(gameService.findPlayerByUsername(username), firstDice, secondDice));
