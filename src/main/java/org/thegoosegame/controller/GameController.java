@@ -45,7 +45,7 @@ public class GameController {
     @PostMapping("/player")
     public String createPlayer(@RequestBody String username) {
         createGame();
-        return "Players: " + gameService.createPlayer(username);
+        return gameService.createPlayer(username);
     }
 
     @ResponseStatus(HttpStatus.OK)

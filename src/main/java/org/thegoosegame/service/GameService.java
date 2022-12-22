@@ -54,7 +54,7 @@ public class GameService {
             game.getCells().get(0).setPlayer(player);
         }
 
-        return game.getPlayers().toString();
+        return "Players: " + game.getPlayers().toString();
     }
 
     //checks if a player already exist
