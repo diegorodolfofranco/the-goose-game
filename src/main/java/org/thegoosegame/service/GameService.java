@@ -86,25 +86,29 @@ public class GameService {
 
     //starts a new turn
     public String newTurn(Player player, int firstDice, int secondDice) {
-        game.setFirstDice(firstDice);
-        game.setSecondDice(secondDice);
-        return movePlayer(game, player,player.getCell());
+        if((firstDice>=1 && firstDice<=6) && (secondDice>=1 && secondDice<=6)){
+            game.setFirstDice(firstDice);
+            game.setSecondDice(secondDice);
+            return movePlayer(game, player,player.getCell());
+        }
+        else
+            return "ERROR: uncorrect dices entered.";
     }
 
     //moves the player to a new cell
     public String movePlayer(Game game, Player player, int currentCellId){
         Cell currentCell = game.getCells().get(currentCellId);
         int newPosition = currentCell.getId() + game.getFirstDice() + game.getSecondDice();
-        String moveResponse;
+        String moveResponse = "";
 
         if(newPosition>63)
             newPosition = bounce(newPosition);
 
-        moveResponse = player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice() + ". "
-                        + player.getUsername() + " moves from " + player.getCell() + " to " + newPosition + ".";
+        moveResponse = moveResponse.concat(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice() + ". "
+                        + player.getUsername() + " moves from " + player.getCell() + " to " + newPosition + ".");
 
         Cell landingCell = game.getCells().get(newPosition);
-        cellService.landOnCell(game, landingCell, moveResponse);
+        cellService.landOnCell(game, player, landingCell, moveResponse);
         int destinationCellPosition = player.getCell();
         //player.setCell(game.getCells().get(destinationCellPosition).getId());
 

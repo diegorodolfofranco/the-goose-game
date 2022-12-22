@@ -1,4 +1,4 @@
-package org.thegoosegame.model;
+package org.thegoosegame.test.cell;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.thegoosegame.model.cell.StandardCell;
+import org.thegoosegame.model.cell.StartCell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 import org.thegoosegame.service.GameService;
@@ -20,7 +20,7 @@ import java.util.LinkedHashSet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
-class StandardCellTest {
+class StartCellTest {
     @Mock
     Game game = new Game();
     @Mock
@@ -30,27 +30,27 @@ class StandardCellTest {
     @InjectMocks
     GameService gameService = new GameService(game, cellService);
     @Mock
-    StandardCell standardCellTest;
+    StartCell startCellTest;
 
     @BeforeEach
     void setup() {
-        standardCellTest = new StandardCell(1);
+        startCellTest = new StartCell(0);
     }
 
     @Test
     void testLand() {
         final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", 0))),
                 new ArrayList<>(), false, "winner", 0, 0);
-        standardCellTest = new StandardCell(7);
+        startCellTest = new StartCell(0);
 
         gameService.initializeBoard(game);
 
         final Player player = new Player("username", game.getCells().get(0).getId());
 
         String moveResponse = "";
-        standardCellTest.land(player, 2, 5, moveResponse);
+        startCellTest.land(game, player, 0, 0, moveResponse);
         final int result = player.getCell();
 
-        assertThat(result).isEqualTo(7);
+        assertThat(result).isEqualTo(0);
     }
 }

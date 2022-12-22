@@ -17,7 +17,7 @@ public class DefaultCellService implements CellService {
     }
 
     @Override
-    public String landOnCell(Game game, Cell cell, String moveResponse) {
-        return cell.land(player, game.getFirstDice(), game.getSecondDice(), moveResponse);
+    public String landOnCell(Game game, Player player, Cell cell, String moveResponse) {
+        return cell.land(game, player, game.getFirstDice(), game.getSecondDice(), moveResponse);
     }
 }

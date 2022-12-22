@@ -1,6 +1,7 @@
 package org.thegoosegame.model.cell;
 
 import lombok.*;
+import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 
 @Getter
@@ -18,7 +19,7 @@ public class StandardCell implements Cell {
     }
 
     //welcomes a player to the cell
-    public String land(Player player, int firstDice, int secondDice, String moveResponse){
+    public String land(Game game, Player player, int firstDice, int secondDice, String moveResponse){
         if(this.player!=null){
             moveResponse = moveResponse.concat(player.getUsername() + " rolls " + firstDice + ", " + secondDice
                     + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + id
@@ -36,7 +37,11 @@ public class StandardCell implements Cell {
                     + ".");
 
         player.setCell(id);
-        this.player = player;
+
+        player.setCell(id);
+        player.setUsername(player.getUsername());
+        game.getCells().get(player.getCell()).setPlayer(null);
+        game.getCells().get(id).setPlayer(player);
 
         return moveResponse;
     }
@@ -44,11 +49,6 @@ public class StandardCell implements Cell {
     //returns the cell's id
     public int getId() {
         return id;
-    }
-
-    //returns the cell's occupant
-    public Player getPlayer() {
-        return player;
     }
 
     //sets the cell's occupant

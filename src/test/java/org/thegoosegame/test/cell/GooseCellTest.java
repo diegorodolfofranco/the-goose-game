@@ -1,4 +1,4 @@
-package org.thegoosegame.model;
+package org.thegoosegame.test.cell;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ class GooseCellTest {
         final Player player = new Player("username", game.getCells().get(0).getId());
 
         String moveResponse = "";
-        gooseCellTest.land(player, 2, 3, moveResponse);
+        gooseCellTest.land(game, player, 2, 3, moveResponse);
         final int result = player.getCell();
 
         assertThat(result).isEqualTo(10);

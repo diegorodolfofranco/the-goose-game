@@ -1,4 +1,4 @@
-package org.thegoosegame.model;
+package org.thegoosegame.test.game;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

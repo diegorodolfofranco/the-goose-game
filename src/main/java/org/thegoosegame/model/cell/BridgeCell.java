@@ -1,6 +1,7 @@
 package org.thegoosegame.model.cell;
 
 import lombok.*;
+import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 
 @Getter
@@ -17,11 +18,13 @@ public class BridgeCell implements Cell {
     }
 
     //welcomes a player to the cell
-    public String land(Player player, int firstDice, int secondDice, String moveResponse){
-        moveResponse = moveResponse.concat(player.getUsername() + " moves from " + player.getCell() + " to 12.");
+    public String land(Game game, Player currentPlayer, int firstDice, int secondDice, String moveResponse){
+        moveResponse = moveResponse.concat(currentPlayer.getUsername() + " moves from " + currentPlayer.getCell() + " to 12.");
 
-        player.setCell(12);
-        this.player = player;
+        currentPlayer.setCell(12);
+        game.getCells().get(currentPlayer.getCell()).setPlayer(currentPlayer);
+        game.getCells().get(6).setPlayer(null);
+        //game.getCells().get(12).setPlayer(currentPlayer);
 
         return moveResponse;
     }
@@ -29,11 +32,6 @@ public class BridgeCell implements Cell {
     //returns the cell's id
     public int getId() {
         return id;
-    }
-
-    //returns the cell's occupant
-    public Player getPlayer() {
-        return player;
     }
 
     //sets the cell's occupant

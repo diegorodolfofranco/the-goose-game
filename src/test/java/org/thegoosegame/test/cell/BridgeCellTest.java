@@ -1,4 +1,4 @@
-package org.thegoosegame.model;
+package org.thegoosegame.test.cell;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ class BridgeCellTest {
         player = new Player("username", game.getCells().get(0).getId());
 
         String moveResponse = "";
-        bridgeCellTest.land(player, 3, 3, moveResponse);
+        bridgeCellTest.land(game, player, 3, 3, moveResponse);
         final int result = player.getCell();
 
         assertThat(result).isEqualTo(12);
