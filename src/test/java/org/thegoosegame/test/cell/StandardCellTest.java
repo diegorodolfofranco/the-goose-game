@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.thegoosegame.model.cell.StandardCell;
+import org.thegoosegame.model.cell.StartCell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 import org.thegoosegame.service.GameService;
@@ -48,7 +49,7 @@ class StandardCellTest {
         final Player player = new Player("username", game.getCells().get(0).getId());
 
         String moveResponse = "";
-        standardCellTest.land(game, player, 2, 5, moveResponse);
+        standardCellTest.land(game, player, 7, moveResponse);
         final int result = player.getCell();
 
         assertThat(result).isEqualTo(7);

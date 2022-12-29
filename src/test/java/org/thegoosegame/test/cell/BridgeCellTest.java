@@ -48,7 +48,7 @@ class BridgeCellTest {
         player = new Player("username", game.getCells().get(0).getId());
 
         String moveResponse = "";
-        bridgeCellTest.land(game, player, 3, 3, moveResponse);
+        bridgeCellTest.land(game, player, 6, moveResponse);
         final int result = player.getCell();
 
         assertThat(result).isEqualTo(12);

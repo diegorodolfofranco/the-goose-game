@@ -18,20 +18,18 @@ public class GooseCell implements Cell {
     }
 
     //welcomes the player to the cell
-    public String land(Game game, Player player, int firstDice, int secondDice, String moveResponse) {
-        int destination = id + firstDice + secondDice;
+    public String land(Game game, Player player, int dices, String moveResponse) {
+        int destination = id + dices;
 
-        if(destination!=5 && destination!=9 && destination!= 13 && destination!= 18 && destination!=23 && destination!=27){
-            moveResponse = moveResponse.concat(player.getUsername() + " moves from " + player.getCell() + " to " + id
-                    + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination + ".");
-        }
-        else {
+        if(destination == 13 || destination == 18 || destination == 23){
             moveResponse = moveResponse.concat(player.getUsername() + " moves from " + player.getCell() + " to " + id
                     + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination + ", The Goose. ");
-            land(game, player, firstDice, secondDice, moveResponse);
+            game.getCells().get(destination).land(game, player, dices, moveResponse);
         }
-
-        player.setCell(destination);
+        else {
+            moveResponse = moveResponse.concat(player.getUsername() + " moves from " + (id - dices) + " to " + id
+                    + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination + ".");
+        }
 
         player.setCell(destination);
         player.setUsername(player.getUsername());

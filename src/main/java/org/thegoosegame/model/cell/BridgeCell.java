@@ -18,7 +18,7 @@ public class BridgeCell implements Cell {
     }
 
     //welcomes a player to the cell
-    public String land(Game game, Player currentPlayer, int firstDice, int secondDice, String moveResponse){
+    public String land(Game game, Player currentPlayer, int dices, String moveResponse){
         moveResponse = moveResponse.concat(currentPlayer.getUsername() + " moves from " + currentPlayer.getCell() + " to 12.");
 
         currentPlayer.setCell(12);

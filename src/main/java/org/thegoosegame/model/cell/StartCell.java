@@ -1,6 +1,8 @@
 package org.thegoosegame.model.cell;
 
 import lombok.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 
@@ -9,8 +11,11 @@ import java.util.Set;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Component
 public class StartCell implements Cell {
     private Set<Player> players = new LinkedHashSet<>();
     private int id;
@@ -21,7 +26,7 @@ public class StartCell implements Cell {
     }
 
     //welcomes a player to the cell
-    public String land(Game game, Player player, int firstDice, int secondDice, String moveResponse){
+    public String land(Game game, Player player, int dices, String moveResponse){
         player.setCell(0);
         players.add(player);
 
@@ -44,5 +49,16 @@ public class StartCell implements Cell {
     //sets the cell's occupant
     public void setPlayer(Player player){
         players.add(player);
+    }
+
+    public Player getPlayerByUsername(String username){
+        Player foundPlayer = new Player();
+
+        for (Player player : players) {
+            if(player.getUsername().equals(username))
+                foundPlayer = player;
+        }
+
+        return foundPlayer;
     }
 }

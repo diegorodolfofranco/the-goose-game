@@ -43,9 +43,9 @@ public class GameController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/player")
-    public String createPlayer(@RequestBody String username) {
+    public ResponseEntity<String> createPlayer(@RequestBody String username) {
         createGame();
-        return gameService.createPlayer(username);
+        return ResponseEntity.ok(gameService.createPlayer(username));
     }
 
     @ResponseStatus(HttpStatus.OK)

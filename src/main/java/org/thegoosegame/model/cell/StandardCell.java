@@ -10,38 +10,34 @@ import org.thegoosegame.model.player.Player;
 @EqualsAndHashCode
 @ToString
 public class StandardCell implements Cell {
-    private Player player;
     private int id;
-
+    private Player player;
     //constructor
     public StandardCell(int id) {
         this.id = id;
     }
 
     //welcomes a player to the cell
-    public String land(Game game, Player player, int firstDice, int secondDice, String moveResponse){
-        if(this.player!=null){
-            moveResponse = moveResponse.concat(player.getUsername() + " rolls " + firstDice + ", " + secondDice
-                    + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + id
-                    + ". On " + id + " there is " + this.player.getUsername() + ", who moves to "
-                    + player.getCell());
+    public String land(Game game, Player currentPlayer, int dices, String moveResponse){
+        if(player!=null){
+            moveResponse = moveResponse.concat(currentPlayer.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+                    + ". " + currentPlayer.getUsername() + " moves from " + currentPlayer.getCell() + " to " + id
+                    + ". On " + id + " there is " + player.getUsername() + ", who moves to "
+                    + currentPlayer.getCell());
 
-            Player prankedPlayer = this.player;
-            int prankDestinationCell = player.getCell();
-
-            prankedPlayer.setCell(prankDestinationCell);
+            int prankDestinationCell = currentPlayer.getCell();
+            player.setCell(prankDestinationCell);
+            player.setUsername(player.getUsername());
+            game.getCells().get(prankDestinationCell).setPlayer(player);
         }
-        else
-            moveResponse = moveResponse.concat(player.getUsername() + " rolls " + firstDice + ", " + secondDice
-                    + ". " + player.getUsername() + " moves from " + player.getCell() + " to " + id
+        else {
+            moveResponse = moveResponse.concat(currentPlayer.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
+                    + ". " + currentPlayer.getUsername() + " moves from " + currentPlayer.getCell() + " to " + id
                     + ".");
-
-        player.setCell(id);
-
-        player.setCell(id);
-        player.setUsername(player.getUsername());
-        game.getCells().get(player.getCell()).setPlayer(null);
-        game.getCells().get(id).setPlayer(player);
+        }
+        currentPlayer.setCell(id);
+        currentPlayer.setUsername(currentPlayer.getUsername());
+        game.getCells().get(id).setPlayer(currentPlayer);
 
         return moveResponse;
     }

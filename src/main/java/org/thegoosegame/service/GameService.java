@@ -104,11 +104,8 @@ public class GameService {
         if(newPosition>63)
             newPosition = bounce(newPosition);
 
-        moveResponse = moveResponse.concat(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice() + ". "
-                        + player.getUsername() + " moves from " + player.getCell() + " to " + newPosition + ".");
-
         Cell landingCell = game.getCells().get(newPosition);
-        cellService.landOnCell(game, player, landingCell, moveResponse);
+        moveResponse = cellService.landOnCell(game, player, landingCell, moveResponse);
         int destinationCellPosition = player.getCell();
         //player.setCell(game.getCells().get(destinationCellPosition).getId());
 
@@ -119,6 +116,11 @@ public class GameService {
             game.setWinner(player.getUsername());
             game.setEnded(true);
         }
+
+        if(currentCell.getId()==0)
+            ((StartCell) currentCell).getPlayers().remove(player);
+        else if (((StandardCell) currentCell).getPlayer().equals(player))
+                currentCell.setPlayer(null);
 
         return moveResponse;
     }

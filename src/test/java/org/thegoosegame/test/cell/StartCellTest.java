@@ -48,7 +48,7 @@ class StartCellTest {
         final Player player = new Player("username", game.getCells().get(0).getId());
 
         String moveResponse = "";
-        startCellTest.land(game, player, 0, 0, moveResponse);
+        startCellTest.land(game, player, 0, moveResponse);
         final int result = player.getCell();
 
         assertThat(result).isEqualTo(0);
