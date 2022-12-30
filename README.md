@@ -11,7 +11,7 @@ This kata has been invented by Matteo Vaccari, you can find the original slides 
 
 General requirements
 You may use whatever programming language you prefer. Use something that you know well.
-You should commit your code on GitHub or any other SCM repository you prefer (e.g. bitbucket, gitlab, etc) and send us the link.
+You should commit your code on GitHub or any other SCM repository you prefer (e.g. bitbucket, gitlab, etc.) and send us the link.
 You should release your work under an OSI-approved open-source license of your choice.
 You should deliver the sources of your application, with a README that explains how to compile and run it.
 IMPORTANT: Implement the requirements focusing on writing the best code you can produce.

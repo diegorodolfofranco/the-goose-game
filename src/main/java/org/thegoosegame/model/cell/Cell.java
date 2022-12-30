@@ -1,9 +1,5 @@
 package org.thegoosegame.model.cell;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 

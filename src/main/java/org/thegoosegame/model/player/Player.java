@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
@@ -12,10 +13,4 @@ import org.springframework.stereotype.Component;
 public class Player {
     private String username;
     private int cell;
-
-    //constructor
-    public Player(String username, int cell){
-        this.username = username;
-        this.cell = cell;
-    }
 }

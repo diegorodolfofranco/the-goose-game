@@ -1,4 +1,4 @@
-package org.thegoosegame.test.cell;
+package org.thegoosegame.test.model.cell;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,22 +6,21 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.thegoosegame.model.cell.StandardCell;
-import org.thegoosegame.model.cell.StartCell;
+import org.thegoosegame.model.cell.BridgeCell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
-import org.thegoosegame.service.GameService;
-import org.thegoosegame.service.cell.CellService;
-import org.thegoosegame.service.cell.DefaultCellService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import org.thegoosegame.service.*;
+import org.thegoosegame.service.cell.CellService;
+import org.thegoosegame.service.cell.DefaultCellService;
 
 @RunWith(MockitoJUnitRunner.class)
-class StandardCellTest {
+class BridgeCellTest {
     @Mock
     Game game = new Game();
     @Mock
@@ -31,27 +30,27 @@ class StandardCellTest {
     @InjectMocks
     GameService gameService = new GameService(game, cellService);
     @Mock
-    StandardCell standardCellTest;
+    BridgeCell bridgeCellTest;
 
     @BeforeEach
     void setup() {
-        standardCellTest = new StandardCell(1);
+        bridgeCellTest = new BridgeCell(6);
     }
 
     @Test
     void testLand() {
         final Game game = new Game(new LinkedHashSet<>(Arrays.asList(new Player("username", 0))),
                 new ArrayList<>(), false, "winner", 0, 0);
-        standardCellTest = new StandardCell(7);
+        bridgeCellTest = new BridgeCell(6);
 
         gameService.initializeBoard(game);
 
-        final Player player = new Player("username", game.getCells().get(0).getId());
+        player = new Player("username", game.getCells().get(0).getId());
 
         String moveResponse = "";
-        standardCellTest.land(game, player, 7, moveResponse);
+        bridgeCellTest.land(game, player, 6, moveResponse);
         final int result = player.getCell();
 
-        assertThat(result).isEqualTo(7);
+        assertThat(result).isEqualTo(12);
     }
 }

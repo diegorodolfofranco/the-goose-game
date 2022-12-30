@@ -1,6 +1,6 @@
 package org.thegoosegame.service;
 
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thegoosegame.exception.PlayerNotFoundException;
@@ -12,7 +12,8 @@ import org.thegoosegame.service.cell.CellService;
 import java.util.Set;
 
 @Service
-@NoArgsConstructor
+@Getter
+@Setter
 public class GameService {
     @Autowired
     private Game game;
@@ -92,7 +93,7 @@ public class GameService {
             return movePlayer(game, player,player.getCell());
         }
         else
-            return "ERROR: uncorrect dices entered.";
+            return "ERROR: Incorrect dices entered.";
     }
 
     //moves the player to a new cell

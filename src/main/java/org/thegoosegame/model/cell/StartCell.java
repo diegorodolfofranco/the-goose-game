@@ -1,7 +1,6 @@
 package org.thegoosegame.model.cell;
 
 import lombok.*;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
@@ -34,8 +33,6 @@ public class StartCell implements Cell {
         game.getCells().get(0).setPlayer(null);
         game.getCells().get(id).setPlayer(player);
 
-        player.setUsername(player.getUsername());
-        player.setCell(id);
         player.setUsername(player.getUsername());
 
         return moveResponse;

@@ -16,24 +16,17 @@ import org.thegoosegame.service.GameService;
 public class GameController {
     @Autowired
     private GameService gameService;
-    @Autowired
-    Game game;
-
-    /*@PostConstruct
-    void setUp() {
-        System.out.println("Controller ready");
-    }*/
 
     @GetMapping
     public Game showGame(){
-        return game;
+        return gameService.getGame();
     }
 
     @PutMapping
     public Game createGame(){
-        if(game.getCells().size()!=64)
-            gameService.initializeBoard(game);
-        return game;
+        if(gameService.getGame().getCells().size()!=64)
+            gameService.initializeBoard(gameService.getGame());
+        return gameService.getGame();
     }
 
     @GetMapping("/{username}")
