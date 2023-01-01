@@ -1,4 +1,4 @@
-package org.thegoosegame.test.model.cell;
+package org.thegoosegame.model.cell;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.thegoosegame.model.cell.StartCell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 import org.thegoosegame.service.GameService;

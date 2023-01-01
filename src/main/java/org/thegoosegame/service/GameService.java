@@ -98,7 +98,7 @@ public class GameService {
 
     //moves the player to a new cell
     public String movePlayer(Game game, Player player, int currentCellId){
-        Cell currentCell = game.getCells().get(currentCellId);
+        Cell currentCell = getGame().getCells().get(currentCellId);
         int newPosition = currentCell.getId() + game.getFirstDice() + game.getSecondDice();
         String moveResponse = "";
 
@@ -118,8 +118,10 @@ public class GameService {
             game.setEnded(true);
         }
 
-        if(currentCell.getId()==0)
-            ((StartCell) currentCell).getPlayers().remove(player);
+        if(currentCellId==0) {
+            Player playerInCell = ((StartCell) currentCell).getPlayerByUsername(player.getUsername());
+            ((StartCell) currentCell).getPlayers().remove(playerInCell);
+        }
         else if (((StandardCell) currentCell).getPlayer().equals(player))
                 currentCell.setPlayer(null);
 

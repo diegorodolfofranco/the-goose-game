@@ -1,4 +1,4 @@
-package org.thegoosegame.test.service;
+package org.thegoosegame.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,11 +10,9 @@ import org.thegoosegame.model.cell.Cell;
 import org.thegoosegame.model.cell.StartCell;
 import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
-import org.thegoosegame.service.GameService;
 import org.thegoosegame.service.cell.CellService;
 import org.thegoosegame.service.cell.DefaultCellService;
 
-import javax.validation.constraints.NotNull;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
