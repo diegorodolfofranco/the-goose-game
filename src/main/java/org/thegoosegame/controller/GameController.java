@@ -10,43 +10,48 @@ import org.thegoosegame.model.player.Player;
 import org.thegoosegame.service.GameService;
 
 @RestController
-@RequestMapping("/game")
+@RequestMapping("")
 public class GameController {
     @Autowired
     private GameService gameService;
 
     @GetMapping
+    public String welcome(){
+        return "WELCOME TO THE GOOSE GAME!";
+    }
+
+    @GetMapping("/game")
     public Game showGame(){
         return gameService.getGame();
     }
 
-    @PutMapping
+    @PutMapping("/game")
     public Game createGame(){
         if(gameService.getGame().getCells().size()!=64)
             gameService.initializeBoard(gameService.getGame());
         return gameService.getGame();
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/game/{username}")
     public Player findPlayerByUsername(@PathVariable String username) throws PlayerNotFoundException {
         return gameService.findPlayerByUsername(username);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/player")
+    @PostMapping("/game/player")
     public ResponseEntity<String> createPlayer(@RequestBody String username) {
         createGame();
         return ResponseEntity.ok(gameService.createPlayer(username));
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/move/{username}/{firstDice}/{secondDice}")
+    @PutMapping("/game/move/{username}/{firstDice}/{secondDice}")
     public ResponseEntity<String> movePlayerWithDices(@PathVariable String username, @PathVariable int firstDice, @PathVariable int secondDice) throws PlayerNotFoundException {
         return ResponseEntity.ok(gameService.newTurn(gameService.findPlayerByUsername(username), firstDice, secondDice));
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/move")
+    @PutMapping("/game/move")
     public ResponseEntity<String> movePlayer(@RequestBody String username) throws PlayerNotFoundException {
         return ResponseEntity.ok(gameService.newTurn(gameService.findPlayerByUsername(username)));
     }
