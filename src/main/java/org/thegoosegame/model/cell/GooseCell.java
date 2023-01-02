@@ -23,16 +23,17 @@ public class GooseCell implements Cell {
 
     //welcomes the player to the cell
     public String land(Game game, Player player, int dices, String moveResponse) {
+        final String theGoose = ", The Goose. ";
         int destination = id + dices;
 
         if(destination == 13 || destination == 18 || destination == 23){
             moveResponse = moveResponse.concat(player.getUsername() + " moves from " + player.getCell() + " to " + id
-                    + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination + ", The Goose. ");
+                    + theGoose + player.getUsername() + " moves again and goes to " + destination + ", The Goose. ");
             game.getCells().get(destination).land(game, player, dices, moveResponse);
         }
         else {
             moveResponse = moveResponse.concat(player.getUsername() + " moves from " + (id - dices) + " to " + id
-                    + ", The Goose. " + player.getUsername() + " moves again and goes to " + destination + ".");
+                    + theGoose + player.getUsername() + " moves again and goes to " + destination + ".");
         }
 
         player.setCell(destination);

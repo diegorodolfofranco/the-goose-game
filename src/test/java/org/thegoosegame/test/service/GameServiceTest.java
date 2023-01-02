@@ -14,9 +14,9 @@ import org.thegoosegame.service.GameService;
 import org.thegoosegame.service.cell.CellService;
 import org.thegoosegame.service.cell.DefaultCellService;
 
-import javax.validation.constraints.NotNull;
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -41,9 +41,9 @@ class GameServiceTest {
         gameService.initializeBoard(game);
         List<Cell> cells = game.getCells();
 
-        assertThat(cells.get(0).getId()).isEqualTo(0);
+        assertThat(cells.get(0).getId()).isZero();
         assertThat(cells.get(63).getId()).isEqualTo(63);
-        assertThat(cells.size()).isEqualTo(64);
+        assertThat(cells).hasSize(64);
     }
 
     @Test
@@ -53,7 +53,7 @@ class GameServiceTest {
 
         assertThat(result).isEqualTo("Players: [Player(username=John, cell=0)]");
         System.out.println(gameService.getGame().getPlayers());
-        assertThat(((StartCell) gameService.getGame().getCells().get(0)).getPlayerByUsername("John").toString()).isEqualTo("Player(username=John, cell=0)");
+        assertThat(((StartCell) gameService.getGame().getCells().get(0)).getPlayerByUsername("John").toString()).hasToString("Player(username=John, cell=0)");
 
         assertThat(gameService.createPlayer("John")).isEqualTo("John: already existing player.");
     }
@@ -77,20 +77,37 @@ class GameServiceTest {
 
     @Test
     void testNewTurnDicesToBeRolled() {
-        player = new Player("username", 0);
+        player = new Player("Mario", 0);
 
         gameService.initializeBoard(game);
-        player.setCell(game.getCells().get(0).getId());
+        player.setCell(gameService.getGame().getCells().get(0).getId());
 
-        game.setFirstDice((int) (Math.random() * 6) + 1);
-        game.setSecondDice((int) (Math.random() * 6) + 1);
+        gameService.getGame().setFirstDice((int) (Math.random() * 6) + 1);
+        gameService.getGame().setSecondDice((int) (Math.random() * 6) + 1);
 
-        gameService.newTurn(player);
+        String newTurnResponse = gameService.newTurn(player);
+
+        int destinationCellId = gameService.getGame().getFirstDice() + gameService.getGame().getSecondDice();
+
+        if(destinationCellId == 6)
+            assertEquals("Mario moves from 0 to 12.", newTurnResponse);
+        else if(destinationCellId == 5)
+                assertEquals("Mario moves from 0 to " + destinationCellId
+                        + ", The Goose. Mario moves again and goes to " + (destinationCellId * 2)
+                        + ".", newTurnResponse);
+            else if (destinationCellId == 9)
+                    assertEquals("Mario moves from 0 to " + destinationCellId
+                            + ", The Goose. Mario moves again and goes to " + (destinationCellId * 2)
+                            + ", The Goose. ", newTurnResponse);
+                else
+                    assertEquals("Mario rolls " + gameService.getGame().getFirstDice() + ", "
+                            + gameService.getGame().getSecondDice() + ". Mario moves from 0 to " + destinationCellId
+                            + ".", newTurnResponse);
     }
 
     @Test
     void testNewTurnDicesAlreadyRolled() {
-        player = new Player("username", 0);
+        player = new Player("Mario", 0);
 
         gameService.initializeBoard(game);
         player.setCell(game.getCells().get(0).getId());
@@ -98,11 +115,14 @@ class GameServiceTest {
         int firstDice = 5;
         int secondDice = 3;
 
-        gameService.newTurn(player, firstDice, secondDice);
+        String newTurnResponse = gameService.newTurn(player, firstDice, secondDice);
+
+        assertEquals("Mario rolls 5, 3. Mario moves from 0 to 8.", newTurnResponse);
     }
 
     @Test
     void testMovePlayer() {
+        Player player = new Player("Mario", 0);
         gameService.initializeBoard(game);
         player.setCell(game.getCells().get(0).getId());
         final int currentCell = player.getCell();
@@ -110,7 +130,9 @@ class GameServiceTest {
         game.setFirstDice(2);
         game.setSecondDice(1);
 
-        gameService.movePlayer(game, player, currentCell);
+        String moveResponse = gameService.movePlayer(game, player, currentCell);
+
+        assertEquals("Mario rolls 2, 1. Mario moves from 0 to 3.", moveResponse);
     }
 
     @Test

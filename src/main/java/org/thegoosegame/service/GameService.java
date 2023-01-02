@@ -10,6 +10,7 @@ import org.thegoosegame.model.player.Player;
 import org.thegoosegame.service.cell.CellService;
 
 import java.util.Set;
+import java.util.Random;
 
 @Service
 @Getter
@@ -19,6 +20,7 @@ public class GameService {
     private Game game;
     @Autowired
     CellService cellService;
+    Random random = new Random();
 
     @Autowired
     public GameService(Game game, CellService cellService){
@@ -80,8 +82,8 @@ public class GameService {
     }
 
     public String newTurn(Player player){
-        game.setFirstDice((int) (Math.random() * 6) + 1);
-        game.setSecondDice((int) (Math.random() * 6) + 1);
+        game.setFirstDice((random.nextInt() * 6) + 1);
+        game.setSecondDice((random.nextInt() * 6) + 1);
         return movePlayer(game, player, player.getCell());
     }
 

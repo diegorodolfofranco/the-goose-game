@@ -51,6 +51,6 @@ class StartCellTest {
         startCellTest.land(game, player, 0, moveResponse);
         final int result = player.getCell();
 
-        assertThat(result).isEqualTo(0);
+        assertThat(result).isZero();
     }
 }

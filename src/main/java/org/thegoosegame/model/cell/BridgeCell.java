@@ -28,7 +28,6 @@ public class BridgeCell implements Cell {
         currentPlayer.setCell(12);
         game.getCells().get(currentPlayer.getCell()).setPlayer(currentPlayer);
         game.getCells().get(6).setPlayer(null);
-        //game.getCells().get(12).setPlayer(currentPlayer);
 
         return moveResponse;
     }
