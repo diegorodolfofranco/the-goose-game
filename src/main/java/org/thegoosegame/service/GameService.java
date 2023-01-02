@@ -99,6 +99,12 @@ public class GameService {
     //moves the player to a new cell
     public String movePlayer(Game game, Player player, int currentCellId){
         Cell currentCell = game.getCells().get(currentCellId);
+
+        if(currentCellId==0)
+            ((StartCell) currentCell).getPlayers().remove(player);
+        else if (((StandardCell) currentCell).getPlayer().equals(player))
+            currentCell.setPlayer(null);
+
         int newPosition = currentCell.getId() + game.getFirstDice() + game.getSecondDice();
         String moveResponse = "";
 
@@ -117,11 +123,6 @@ public class GameService {
             game.setWinner(player.getUsername());
             game.setEnded(true);
         }
-
-        if(currentCell.getId()==0)
-            ((StartCell) currentCell).getPlayers().remove(player);
-        else if (((StandardCell) currentCell).getPlayer().equals(player))
-                currentCell.setPlayer(null);
 
         return moveResponse;
     }
