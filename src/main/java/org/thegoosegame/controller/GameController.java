@@ -9,8 +9,6 @@ import org.thegoosegame.model.game.Game;
 import org.thegoosegame.model.player.Player;
 import org.thegoosegame.service.GameService;
 
-//import javax.annotation.PostConstruct;
-
 @RestController
 @RequestMapping("/game")
 public class GameController {

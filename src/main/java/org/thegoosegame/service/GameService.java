@@ -114,7 +114,6 @@ public class GameService {
         Cell landingCell = game.getCells().get(newPosition);
         moveResponse = cellService.landOnCell(game, player, landingCell, moveResponse);
         int destinationCellPosition = player.getCell();
-        //player.setCell(game.getCells().get(destinationCellPosition).getId());
 
         if(destinationCellPosition==63){
             moveResponse = moveResponse.concat(player.getUsername() + " rolls " + game.getFirstDice() + ", " + game.getSecondDice()
