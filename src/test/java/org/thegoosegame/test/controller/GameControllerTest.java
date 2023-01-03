@@ -1,5 +1,7 @@
 package org.thegoosegame.test.controller;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -83,7 +85,7 @@ class GameControllerTest {
     @Test
     void testCreatePlayerWhenPlayerDoesntExist() {
         when(gameService.createPlayer("Mario")).thenReturn("Players: Mario");
-        when(gameService.getGame()).thenReturn(new Game(new LinkedHashSet<Player>(Arrays.asList(new Player("Mario", 0))), Arrays.<Cell>asList(new StartCell(new LinkedHashSet<Player>(Arrays.asList(new Player("Mario", 0))), 0)), false, "", 0, 0));
+        when(gameService.getGame()).thenReturn(new Game(new LinkedHashSet<>(Arrays.asList(new Player("Mario", 0))), Arrays.asList(new StartCell(new LinkedHashSet<>(Arrays.asList(new Player("Mario", 0))), 0)), false, "", 0, 0));
         String response = gameController.createPlayer("Mario").toString();
         assertEquals("<200 OK OK,Players: Mario,[]>", response);
     }
@@ -91,28 +93,50 @@ class GameControllerTest {
     @Test
     void testCreatePlayerWhenPlayerAlreadyExists() {
         when(gameService.createPlayer("Mario")).thenReturn("Mario: already existing player.");
-        when(gameService.getGame()).thenReturn(new Game(new LinkedHashSet<Player>(Arrays.asList(new Player("Mario", 0))), Arrays.<Cell>asList(new StartCell(new LinkedHashSet<Player>(Arrays.asList(new Player("Mario", 0))), 0)), false, "", 0, 0));
+        when(gameService.getGame()).thenReturn(new Game(new LinkedHashSet<>(Arrays.asList(new Player("Mario", 0))), Arrays.asList(new StartCell(new LinkedHashSet<>(Arrays.asList(new Player("Mario", 0))), 0)), false, "", 0, 0));
         String response = gameController.createPlayer("Mario").toString();
         assertEquals("<200 OK OK,Mario: already existing player.,[]>", response);
     }
 
     @Test
-    void testMovePlayerWithDices() throws PlayerNotFoundException {
+    void testMovePlayerWithDices() throws PlayerNotFoundException, JSONException {
         Player player = new Player("Mario", 0);
 
         when(gameService.newTurn(player, 2, 2)).thenReturn("Mario rolls 2, 2. Mario moves from 0 to 4.");
         when(gameService.findPlayerByUsername("Mario")).thenReturn(player);
-        String response = gameController.movePlayerWithDices("Mario", 2, 2).toString();
+
+        JSONObject jsonRequestBody = new JSONObject();
+        jsonRequestBody.put("username", "Mario");
+        jsonRequestBody.put("firstDice", 2);
+        jsonRequestBody.put("secondDice", 2);
+
+        String response = gameController.movePlayerWithDices(jsonRequestBody.toString()).toString();
         assertEquals("<200 OK OK,Mario rolls 2, 2. Mario moves from 0 to 4.,[]>", response);
     }
 
     @Test
-    void testMovePlayerWithDicesIncorrectDices() throws PlayerNotFoundException {
+    void testMovePlayerWithDicesIncorrectDices() throws PlayerNotFoundException, JSONException {
         Player player = new Player("Mario", 0);
 
         when(gameService.newTurn(player, 3, 7)).thenReturn("ERROR: Incorrect dices entered.");
         when(gameService.findPlayerByUsername("Mario")).thenReturn(player);
-        String response = gameController.movePlayerWithDices("Mario", 3, 7).toString();
+
+        JSONObject jsonRequestBody = new JSONObject();
+        jsonRequestBody.put("username", "Mario");
+        jsonRequestBody.put("firstDice", 3);
+        jsonRequestBody.put("secondDice", 7);
+
+        String response = gameController.movePlayerWithDices(jsonRequestBody.toString()).toString();
         assertEquals("<200 OK OK,ERROR: Incorrect dices entered.,[]>", response);
+    }
+
+    @Test
+    void testMovePlayer() throws PlayerNotFoundException {
+        Player player = new Player("Mario", 0);
+
+        when(gameService.findPlayerByUsername("Mario")).thenReturn(player);
+
+        String response = gameController.movePlayer(player.getUsername()).toString();
+        assertEquals("<200 OK OK,[]>", response);
     }
 }

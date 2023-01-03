@@ -1,5 +1,6 @@
 package org.thegoosegame.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +33,8 @@ public class GameController {
         return gameService.getGame();
     }
 
-    @GetMapping("/game/{username}")
-    public Player findPlayerByUsername(@PathVariable String username) throws PlayerNotFoundException {
+    @GetMapping("/game/player")
+    public Player findPlayerByUsername(@RequestBody String username) throws PlayerNotFoundException {
         return gameService.findPlayerByUsername(username);
     }
 
@@ -45,13 +46,18 @@ public class GameController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/game/move/{username}/{firstDice}/{secondDice}")
-    public ResponseEntity<String> movePlayerWithDices(@PathVariable String username, @PathVariable int firstDice, @PathVariable int secondDice) throws PlayerNotFoundException {
+    @PutMapping("/game/move")
+    public ResponseEntity<String> movePlayerWithDices(@RequestBody String requestBody) throws PlayerNotFoundException {
+        JSONObject jsonRequestBody = new JSONObject(requestBody);
+        String username = jsonRequestBody.getString("username");
+        int firstDice = jsonRequestBody.getInt("firstDice");
+        int secondDice = jsonRequestBody.getInt("secondDice");
+
         return ResponseEntity.ok(gameService.newTurn(gameService.findPlayerByUsername(username), firstDice, secondDice));
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/game/move")
+    @PutMapping("/game/move/nodices")
     public ResponseEntity<String> movePlayer(@RequestBody String username) throws PlayerNotFoundException {
         return ResponseEntity.ok(gameService.newTurn(gameService.findPlayerByUsername(username)));
     }

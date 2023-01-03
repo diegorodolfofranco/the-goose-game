@@ -82,8 +82,8 @@ public class GameService {
     }
 
     public String newTurn(Player player){
-        game.setFirstDice((random.nextInt() * 6) + 1);
-        game.setSecondDice((random.nextInt() * 6) + 1);
+        game.setFirstDice(random.nextInt(6) + 1);
+        game.setSecondDice(random.nextInt(6) + 1);
         return movePlayer(game, player, player.getCell());
     }
 
